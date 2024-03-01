@@ -4,8 +4,11 @@ import { Heading } from "native-base";
 
 import { COLORS, FONT_SIZES, SPACINGS } from '../src/utils/tokens';
 import Button from '../src/components/buttons/Button';
+import { useTemplateContext } from '../src/context/Template';
+import { Templates } from '../src/types/template';
 
 const WelcomeScreen = () => {
+    const templateContext = useTemplateContext();
 
     return (
         <ImageBackground source={require('../assets/welcome-screen.png')} resizeMode='cover' style={styles.rootContainer}>
@@ -22,7 +25,7 @@ const WelcomeScreen = () => {
                 <View style={{ gap: SPACINGS.big }}>
                     <Button 
                         fullWidth 
-                        onPress={() => {}} 
+                        onPress={() => templateContext.navigateWithTemplate({template: Templates.Signin, pathname: '/auth'})} 
                         size='Medium' 
                         type='Tertiary' 
                         variant='Filled' 
@@ -30,7 +33,7 @@ const WelcomeScreen = () => {
                     />
                     <Button 
                         fullWidth 
-                        onPress={() => {}}
+                        onPress={() => templateContext.navigateWithTemplate({template: Templates.Signup, pathname: '/auth'})} 
                         size='Medium' 
                         type='Secondary' 
                         variant='Outline' 

@@ -1,0 +1,27 @@
+{
+    "name": "Signin",
+    "header": "Welcome Back 😊",
+    "ctaText": "Log In",
+    "fields": [
+        {
+            "id": "email",
+            "placeholder": "Enter email",
+            "type": "text",
+            "variant": "Underline",
+            "icon": "at-outline"
+        },
+        {
+            "id": "passowrd",
+            "placeholder": "Enter password",
+            "type": "password",
+            "variant": "Underline",
+            "icon": "lock-closed-outline"
+        }
+    ],
+    "link": "Don't have account? Sign up for free!",
+    "state": {
+        "email": "",
+        "password": ""
+    },
+    "validators": {}
+}
