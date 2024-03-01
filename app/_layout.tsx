@@ -8,6 +8,7 @@ import useImagesLoader from '../src/hooks/useImagesLoader';
 import SplashScreen from '../src/components/Splash';
 import { COLORS } from '../src/utils/tokens';
 import { NativeBaseProvider } from 'native-base';
+import { TemplateContextProvider } from '../src/context/Template';
 
 export const RootNavigation = () => {
     const statusBar = {
@@ -25,13 +26,16 @@ export const RootNavigation = () => {
 const RootLayout = () => {
     const [imagesLoaded] = useImagesLoader([
         require('../assets/splash-screen.png'),
+        require('../assets/welcome-screen.png'),
     ])
 
     return (
         <SplashScreen isLoaded={imagesLoaded!}>
             <NativeBaseProvider>
-                <StatusBar animated />
-                <RootNavigation />
+                <TemplateContextProvider>
+                    <StatusBar animated />
+                    <RootNavigation />
+                </TemplateContextProvider>
             </NativeBaseProvider>
         </SplashScreen>
     )
