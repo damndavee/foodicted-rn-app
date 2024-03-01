@@ -7,11 +7,12 @@ import useImagesLoader from '../src/hooks/useImagesLoader';
 
 import SplashScreen from '../src/components/Splash';
 import { COLORS } from '../src/utils/tokens';
+import { NativeBaseProvider } from 'native-base';
 
 export const RootNavigation = () => {
     const statusBar = {
         statusBarStyle: 'dark' as StatusBarStyle,
-        statusBarColor: COLORS.primary
+        statusBarColor: COLORS.primaryLight
     };
 
     return (
@@ -28,8 +29,10 @@ const RootLayout = () => {
 
     return (
         <SplashScreen isLoaded={imagesLoaded!}>
-            <StatusBar animated />
-            <RootNavigation />
+            <NativeBaseProvider>
+                <StatusBar animated />
+                <RootNavigation />
+            </NativeBaseProvider>
         </SplashScreen>
     )
 }
