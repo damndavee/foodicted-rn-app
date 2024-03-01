@@ -6,11 +6,12 @@ import { StatusBar, StatusBarStyle } from "expo-status-bar";
 import useImagesLoader from '../src/hooks/useImagesLoader';
 
 import SplashScreen from '../src/components/Splash';
+import { COLORS } from '../src/utils/tokens';
 
 export const RootNavigation = () => {
     const statusBar = {
         statusBarStyle: 'dark' as StatusBarStyle,
-        statusBarColor: '#FAE6CD'
+        statusBarColor: COLORS.primary
     };
 
     return (

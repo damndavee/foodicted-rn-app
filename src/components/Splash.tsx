@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import AnimatedSplash from "react-native-animated-splash-screen";
+import { COLORS } from '../utils/tokens';
 
 interface SplashScreenProps {
     isLoaded: boolean;
@@ -10,9 +11,9 @@ const SplashScreen = (props: PropsWithChildren<SplashScreenProps>) => {
   return (
     <AnimatedSplash 
         isLoaded={props.isLoaded} 
-        backgroundColor={'#006BFF'} 
         translucent
         logoImage={require("../../assets/splash-screen.png")}
+        backgroundColor={COLORS.primary}
         logoHeight={200}
         logoWidth={200}
     >
