@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     innerContainer: {
-        height: '75%',
+        height: '80%',
         padding: SPACINGS.xlarge,
         justifyContent: 'space-between'
     },
@@ -76,4 +76,16 @@ const styles = StyleSheet.create({
         fontSize: FONT_SIZES.big,
         fontWeight: 'bold',
     },
+    tncContainer: {
+        marginTop: SPACINGS.xlarge,
+        alignSelf: 'center',
+        width: '90%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    icon: {
+        width: 290,
+        height: 290,
+        alignSelf: 'center'
+    }
 })

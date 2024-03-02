@@ -19,6 +19,7 @@ export const RootNavigation = () => {
     return (
         <Stack screenOptions={{ headerShown: false, ...statusBar }}>
             <Stack.Screen name='index' />
+            <Stack.Screen name='auth' />
         </Stack>
     )
 }
@@ -27,6 +28,7 @@ const RootLayout = () => {
     const [imagesLoaded] = useImagesLoader([
         require('../assets/splash-screen.png'),
         require('../assets/welcome-screen.png'),
+        require('../assets/auth-screen.png'),
     ])
 
     return (
