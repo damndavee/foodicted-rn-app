@@ -15,7 +15,7 @@ const WelcomeScreen = () => {
             <View style={styles.innerContainer}>
                 <View style={styles.descriptionContainer}>
                     <View style={styles.headingContainer}>
-                        <Heading size="2xl" color={COLORS.secondary} >Fooddicted</Heading>
+                        <Heading style={styles.heading} size="2xl" >Fooddicted</Heading>
                     </View>
                     <View style={styles.description}>
                         <Text style={[styles.descriptionHeader, {color: COLORS.secondaryLight}]}>Get Your cooking</Text>
@@ -93,6 +93,10 @@ const styles = StyleSheet.create({
     },
     headingContainer: {
         elevation: 2,
+    },
+    heading: {
+        fontFamily: 'DancingScript_600SemiBold',
+        color: COLORS.secondary
     },
     description: {
         marginTop: SPACINGS.small,
