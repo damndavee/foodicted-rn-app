@@ -7,6 +7,7 @@ import { useTemplateContext } from '../src/context/Template';
 import { COLORS, SPACINGS } from '../src/utils/tokens';
 
 import { Templates } from '../src/types/template';
+import FormInput from '../src/components/form/FormInput';
 
 const AuthScreen = () => {
     const { template, setTemplate } = useTemplateContext();
@@ -33,6 +34,9 @@ const AuthScreen = () => {
                     <Heading pl={5} size='2xl' color={COLORS.primary} maxWidth='2/3'>{template.header}</Heading>
                     <View style={styles.formContainer}>
                         {/* //TODO: Form goes here */}
+                        <FormInput errorMessage='ERRRROR' id='id' isValid onChange={() => {}} placeholder='placeholder id ' type='text' value='' variant='Filled' icon='people-sharp' />
+                        <FormInput errorMessage='ERRRROR' id='id' isValid onChange={() => {}} placeholder='placeholder id ' type='text' value='' variant='Outline' icon='people-sharp'/>
+                        <FormInput errorMessage='ERRRROR' id='id' isValid onChange={() => {}} placeholder='placeholder id ' type='text' value='' variant='Underline' />
                     </View>
                     <View>
                         <Button 
