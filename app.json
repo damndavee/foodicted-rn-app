@@ -27,7 +27,15 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      ["expo-font", {
+        "fonts": [
+          "./node_modules/@expo-google-fonts/dancing-script/DancingScript_400Regular.ttf",
+          "./node_modules/@expo-google-fonts/dancing-script/DancingScript_500Medium.ttf",
+          "./node_modules/@expo-google-fonts/dancing-script/DancingScript_600SemiBold.ttf"
+        ]
+      }]
     ]
   }
 }
+
