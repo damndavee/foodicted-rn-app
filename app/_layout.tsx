@@ -18,9 +18,10 @@ export const RootNavigation = () => {
     };
 
     return (
-        <Stack screenOptions={{ headerShown: false, ...statusBar }}>
-            <Stack.Screen name='index' />
-            <Stack.Screen name='auth' />
+        <Stack screenOptions={{ ...statusBar }}>
+            <Stack.Screen name='index' options={{ headerShown: false }} />
+            <Stack.Screen name='auth' options={{ headerShown: false }} />
+            <Stack.Screen name='forgotPassword' />
         </Stack>
     )
 }
