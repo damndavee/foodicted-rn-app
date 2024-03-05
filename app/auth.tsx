@@ -16,7 +16,7 @@ import FormFooter from '../src/components/form/FormFooter';
 
 const AuthScreen = () => {
     const { template, setTemplate } = useTemplateContext();
-    const { handleChange, handleSubmit, handleClearForm, userData } = useForm();
+    const { handleChange, handleSubmit, userData, handleSwitchAuthFormType } = useForm();
 
     // TODO: Loading spinner
     if(!template) {
@@ -27,11 +27,6 @@ const AuthScreen = () => {
         style: [styles.imgBackground],
         source: require('../assets/auth-screen.png'),
         resizeMode: 'cover' as ImageResizeMode
-    }
-
-    const switchAuthFormType = () => {
-        handleClearForm();
-        setTemplate(template.name === Templates.Signin ? Templates.Signup : Templates.Signin);
     }
     
     const renderForm = () => {
@@ -80,7 +75,7 @@ const AuthScreen = () => {
                         />
                         <Button 
                             label={template.link} 
-                            onPress={switchAuthFormType}
+                            onPress={handleSwitchAuthFormType}
                             size='Medium' 
                             type='Primary' 
                             variant='Ghost'
@@ -119,7 +114,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         alignSelf: 'center', 
-        width: 200, 
-        height: 200
+        width: 170, 
+        height: 170
     }
 })
