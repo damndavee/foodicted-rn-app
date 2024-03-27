@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, ImageBackground, ImageResizeMode } from 'react-native';
-import { Heading } from 'native-base';
+import { StyleSheet, View, ImageBackground, ImageResizeMode, TextInput } from 'react-native';
+import { Heading, Text } from 'native-base';
 
 import Button from '../src/components/buttons/Button';
 import { useTemplateContext } from '../src/context/Template';
@@ -8,9 +8,14 @@ import { COLORS, SPACINGS } from '../src/utils/tokens';
 
 import { Templates } from '../src/types/template';
 import FormInput from '../src/components/form/FormInput';
+import { FormInputProps } from '../src/types/components/formInput';
+import { AuthIcon } from '../src/components/icon/Icon';
+import FormFooter from '../src/components/form/FormFooter';
+import { Formik } from 'formik';
+
 
 const AuthScreen = () => {
-    const { template, setTemplate } = useTemplateContext();
+    const { template, setTemplate, validationSchema } = useTemplateContext();
 
     // TODO: Loading spinner
     if(!template) {
@@ -23,40 +28,72 @@ const AuthScreen = () => {
         resizeMode: 'cover' as ImageResizeMode
     }
 
-    const switchAuthFormType = () => {
-        setTemplate(template.name === Templates.Signin ? Templates.Signup : Templates.Signin);
+    const handleSwitchAuthFormType = () => {
+        const temp = template.name === Templates.Signin ? Templates.Signup : Templates.Signin;
+        setTemplate(temp);
     }
-    
+        console.log(validationSchema);
     return (
         <View style={[styles.rootContainer]}>
             <ImageBackground {...imageProps} >
                 <View style={styles.innerContainer}>
-                    <Heading pl={5} size='2xl' color={COLORS.primary} maxWidth='2/3'>{template.header}</Heading>
-                    <View style={styles.formContainer}>
-                        {/* //TODO: Form goes here */}
-                        <FormInput errorMessage='ERRRROR' id='id' isValid onChange={() => {}} placeholder='placeholder id ' type='text' value='' variant='Filled' icon='people-sharp' />
-                        <FormInput errorMessage='ERRRROR' id='id' isValid onChange={() => {}} placeholder='placeholder id ' type='text' value='' variant='Outline' icon='people-sharp'/>
-                        <FormInput errorMessage='ERRRROR' id='id' isValid onChange={() => {}} placeholder='placeholder id ' type='text' value='' variant='Underline' />
-                    </View>
                     <View>
-                        <Button 
-                            fullWidth 
-                            label={template.ctaText} 
-                            onPress={() => {}} 
-                            size='Medium' 
-                            type='Secondary' 
-                            variant='Filled' 
-                        />
-                        <Button 
-                            label={template.link} 
-                            onPress={switchAuthFormType}
-                            size='Medium' 
-                            type='Primary' 
-                            variant='Ghost'
-                            selfAlignment='center'
-                        />
+                        <Heading style={styles.header} size="2xl">{template.header}</Heading>
+                        <AuthIcon style={styles.icon} />
                     </View>
-                </View>
+                    
+                    <Formik initialValues={template.state} validationSchema={validationSchema} onSubmit={values => console.log("VALUES", values)}>
+                        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, handleReset }) => (
+                            <View style={styles.formInnerContainer}>
+                                <View style={styles.inputsContainer}>
+                                    {template.fields.map((field: FormInputProps) => {
+                                        const isFieldValid = touched[field.id] && errors[field.id];
+
+                                        return (
+                                            <FormInput
+                                                value={values[field.id]}
+                                                errorMessage={errors[field.id]} 
+                                                key={field.id} 
+                                                id={field.id} 
+                                                isValid={!isFieldValid}
+                                                onBlur={handleBlur(field.id)}
+                                                onChange={handleChange(field.id)} 
+                                                placeholder={field.placeholder} 
+                                                type={field.type} 
+                                                variant={field.variant} 
+                                                icon={field.icon} 
+                                            />
+                                        )
+                                    })}                            
+                                    <FormFooter templateName={template.name} />
+                                </View>
+
+                                
+                                <View style={styles.actionContainer}>
+                                    <Button 
+                                        fullWidth 
+                                        label={template.ctaText} 
+                                        onPress={handleSubmit} 
+                                        size='Medium' 
+                                        type='Primary' 
+                                        variant='Filled' 
+                                    />
+                                    <Button 
+                                        label={template.link} 
+                                        onPress={() => {
+                                            handleReset();
+                                            handleSwitchAuthFormType();
+                                        }}
+                                        size='Medium' 
+                                        type='Primary' 
+                                        variant='Ghost'
+                                        selfAlignment='center'
+                                    />
+                                </View> 
+                            </View>
+                        )}
+                    </Formik>
+                </View> 
             </ImageBackground>
         </View>
     ) 
@@ -74,12 +111,28 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     innerContainer: {
-        height: '90%',
+        height: '95%',
         padding: SPACINGS.large,
-        justifyContent: 'space-between'
+        gap: SPACINGS.large + 10,
+        justifyContent: 'space-between',
     },
-    formContainer: {
-        width: '100%',
-        gap: SPACINGS.xlarge + 5,
+    formInnerContainer: {
+        justifyContent: 'space-between',
+        flex: 1
     },
+    inputsContainer: {
+        gap: SPACINGS.large
+    },
+    actionContainer: {
+
+    },
+    header: {
+        alignSelf: "center", 
+        color: COLORS.tertiaryLight,
+    },
+    icon: {
+        alignSelf: 'center', 
+        width: 170, 
+        height: 170
+    }
 })

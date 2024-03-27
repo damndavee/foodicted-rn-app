@@ -6,7 +6,6 @@ import { COLORS, FONT_SIZES, SPACINGS } from '../src/utils/tokens';
 import Button from '../src/components/buttons/Button';
 import { useTemplateContext } from '../src/context/Template';
 import { Templates } from '../src/types/template';
-import IconButton from '../src/components/buttons/IconButton';
 
 const WelcomeScreen = () => {
     const templateContext = useTemplateContext();
@@ -57,7 +56,11 @@ const WelcomeScreen = () => {
                             onPress={() => templateContext.navigateWithTemplate({template: Templates.Signup, pathname: '/auth'})} 
                             size='Medium' 
                             type='Secondary' 
-                            variant='Ghost' 
+                            variant='Ghost'
+                            textStyle={{
+                                isBold: true,
+                                isUnderline: true
+                            }}
                             label="Create a new account"
                             selfAlignment='center'
                         />

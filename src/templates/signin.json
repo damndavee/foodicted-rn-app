@@ -11,7 +11,7 @@
             "icon": "at-outline"
         },
         {
-            "id": "passowrd",
+            "id": "password",
             "placeholder": "Enter password",
             "type": "password",
             "variant": "Underline",

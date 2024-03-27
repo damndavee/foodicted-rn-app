@@ -8,7 +8,7 @@ export type Icon = keyof typeof Ionicons.glyphMap;
 
 export interface StyleProps {
     [key: string]: ViewStyle | TextStyle | ImageStyle | any;
-  }
+}
 
 export enum GenericComponentType {
     Primary = 'Primary',
@@ -17,6 +17,7 @@ export enum GenericComponentType {
 }
 
 export enum GenericComponentSize {
+    Xsmall = 'Xsmall',
     Small = 'Small', 
     Medium = 'Medium',
     Big = 'Big',
@@ -31,7 +32,9 @@ export enum GenericComponentVariant {
 }
 
 export type TempComponentVariant = keyof typeof GenericComponentVariant;
+export type TempComponentSize = keyof typeof GenericComponentSize;
 export type ExcludeComponentVariant<T extends TempComponentVariant> = Exclude<TempComponentVariant, T>;
+export type ExcludeComponentSize<T extends TempComponentSize> = Exclude<TempComponentSize, T>;
 
 export enum GenericComponentColorThemeIndex { Active, Pressed, Color };
 export enum GenericComponentSizeIndex { FontSize, Spacing, Dimension };
@@ -44,7 +47,7 @@ export const GenericComponentColorThemeMap: Record<GenericComponentType, Generic
     [GenericComponentType.Tertiary]: [COLORS.tertiary, COLORS.tertiaryLight, COLORS.primary],
 };
 
-export const COMPONENT_SIZE: Record<GenericComponentSize, GenericComponentSizeValues> = {
+export const COMPONENT_SIZE: Record<ExcludeComponentSize<'Xsmall'>, GenericComponentSizeValues> = {
     [GenericComponentSize.Small]: [FONT_SIZES.small, SPACINGS.medium, DIMENSIONS.small],
     [GenericComponentSize.Medium]: [FONT_SIZES.medium, SPACINGS.medium, DIMENSIONS.medium],
     [GenericComponentSize.Big]: [FONT_SIZES.big, SPACINGS.big, DIMENSIONS.big],
