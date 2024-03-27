@@ -56,7 +56,11 @@ const WelcomeScreen = () => {
                             onPress={() => templateContext.navigateWithTemplate({template: Templates.Signup, pathname: '/auth'})} 
                             size='Medium' 
                             type='Secondary' 
-                            variant='Ghost' 
+                            variant='Ghost'
+                            textStyle={{
+                                isBold: true,
+                                isUnderline: true
+                            }}
                             label="Create a new account"
                             selfAlignment='center'
                         />

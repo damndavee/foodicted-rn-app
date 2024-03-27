@@ -10,7 +10,7 @@ import FormInput from '../src/components/form/FormInput';
 const ForgotPasswordscreen = () => {
   return (
     <>
-      <Stack.Screen options={{ headerStyle: { backgroundColor: COLORS.secondaryLight}, headerTintColor: COLORS.tertiary, title: 'Forgot password' }} />
+      <Stack.Screen options={{ headerStyle: { backgroundColor: COLORS.primaryLight}, headerTintColor: COLORS.tertiary, title: 'Forgot password', headerShadowVisible: false }} />
       <View style={styles.rootContainer}>
         <Text>ForgotPasswordscreen</Text>
         <Pressable style={styles.selectBoxContainer}>
@@ -19,7 +19,6 @@ const ForgotPasswordscreen = () => {
             <Heading size="md" color={COLORS.tertiary} >Reset via Email</Heading>
             <Text style={{fontSize: 12, color: COLORS.text}}>Select option to receive password code</Text>
           </View>
-          <IconButton name='checkmark' onPress={() => {}} size='Small' type='Tertiary' rounded />
         </Pressable>
         <Pressable style={styles.selectBoxContainerChecked}>
           <IconButton name='chatbox' onPress={() => {}} size='Big' showBackground type='Primary' style={{ borderRadius: 5 }} />
