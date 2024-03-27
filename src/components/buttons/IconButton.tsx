@@ -4,7 +4,6 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { IconButtonProps } from "../../types/components/iconButton";
 import { COMPONENT_SIZE, GenericComponentColorThemeIndex, GenericComponentColorThemeMap, GenericComponentSizeIndex } from "../../types/components/generic";
-import { SPACINGS } from "../../utils/tokens";
 
 const IconButton = (props: IconButtonProps) => {
     const getIconButtonColor = (isPressed: boolean, isHovered: boolean) => {
@@ -21,10 +20,18 @@ const IconButton = (props: IconButtonProps) => {
 
     const borderRadius = props.rounded ? 200 : 0;
 
+    const sizesMap = {
+        'Xsmall': 20,
+        'Small': 25,
+        'Medium': 30,
+        'Big':  35,
+        'Large':  42
+    }
+
     const iconProps = {
         name: props.name,
-        size: COMPONENT_SIZE[props.size][GenericComponentSizeIndex.FontSize] * 2,
-        padding: 5
+        size: sizesMap[props.size],
+        padding: sizesMap[props.size] / 5
     }
 
     return (
