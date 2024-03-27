@@ -4,13 +4,6 @@
     "ctaText": "Sign Up",
     "fields": [
         {
-            "id": "nickname",
-            "placeholder": "Enter nickname",
-            "type": "text",
-            "variant": "Underline",
-            "icon": "person-outline"
-        },
-        {
             "id": "email",
             "placeholder": "Enter email",
             "type": "text",
@@ -18,14 +11,14 @@
             "icon": "at-outline"
         },
         {
-            "id": "passowrd",
+            "id": "password",
             "placeholder": "Enter password",
             "type": "password",
             "variant": "Underline",
             "icon": "lock-closed-outline"
         },
         {
-            "id": "confirmPassowrd",
+            "id": "confirmPassword",
             "placeholder": "Confirm password",
             "type": "password",
             "variant": "Underline",
@@ -35,9 +28,8 @@
     "link": "Already have account? Sign in!",
     "state": {
         "email": "",
-        "nickname": "",
         "password": "",
-        "confirmPassowrd": ""
+        "confirmPassword": ""
     },
     "validators": {}
 }
