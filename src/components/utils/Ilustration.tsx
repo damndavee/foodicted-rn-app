@@ -1,7 +1,7 @@
 import { Icon } from "native-base";
 import { G, Path } from "react-native-svg";
 
-export const AuthIcon = (props: any) => {
+const AuthIlustration = (props: any) => {
     return (
         <Icon size="6xl" viewBox="0 0 1041 872" style={props.style}>
             <G fillRule="nonzero" stroke="none" strokeWidth={1} fill="none">
@@ -77,4 +77,6 @@ export const AuthIcon = (props: any) => {
             </G>
         </Icon>
     )
-}
+};
+
+export { AuthIlustration };
