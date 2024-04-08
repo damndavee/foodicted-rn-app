@@ -43,7 +43,7 @@ export type GenericComponentSizeValues = [number, number, number];
 
 export const GenericComponentColorThemeMap: Record<GenericComponentType, GenericComponentColorThemeValues> = {
     [GenericComponentType.Primary]: [COLORS.primary, COLORS.primaryLight, COLORS.tertiary],
-    [GenericComponentType.Secondary]: [COLORS.secondary, COLORS.secondaryLight, COLORS.secondaryDark],
+    [GenericComponentType.Secondary]: [COLORS.secondary, COLORS.secondaryLight, COLORS.primaryLight],
     [GenericComponentType.Tertiary]: [COLORS.tertiary, COLORS.tertiaryLight, COLORS.primary],
 };
 

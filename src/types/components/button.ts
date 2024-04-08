@@ -1,5 +1,5 @@
 import { FlexAlignType } from 'react-native/types';
-import { GenericComponentSize, GenericComponentType, Icon, ExcludeComponentVariant } from './generic';
+import { GenericComponentType, Icon, ExcludeComponentVariant, ExcludeComponentSize } from './generic';
 
 interface ButtonFontStyle {
     fontSize?: number;
@@ -11,7 +11,7 @@ interface ButtonFontStyle {
 export interface ButtonProps {
     label: string;
     type: keyof typeof GenericComponentType;
-    size: keyof typeof GenericComponentSize;
+    size: ExcludeComponentSize<'Xsmall'>;
     variant: ExcludeComponentVariant<'Underline'>;
     onPress: () => void;
     fullWidth?: boolean;
