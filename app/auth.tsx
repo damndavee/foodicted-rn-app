@@ -1,21 +1,23 @@
-import React from 'react';
-import { StyleSheet, View, ImageBackground, ImageResizeMode, TextInput } from 'react-native';
-import { Heading, Text } from 'native-base';
+import React, { useState } from 'react';
+import { StyleSheet, View, ImageBackground, ImageResizeMode } from 'react-native';
+import { Heading } from 'native-base';
 
 import Button from '../src/components/buttons/Button';
 import { useTemplateContext } from '../src/context/Template';
-import { COLORS, SPACINGS } from '../src/utils/tokens';
+import { COLORS, FONT_SIZES, SPACINGS } from '../src/utils/tokens';
 
 import { Templates } from '../src/types/template';
 import FormInput from '../src/components/form/FormInput';
 import { FormInputProps } from '../src/types/components/formInput';
-import { AuthIcon } from '../src/components/icon/Icon';
-import FormFooter from '../src/components/form/FormFooter';
 import { Formik } from 'formik';
-
+import { AuthIlustration } from '../src/components/utils/Ilustration';
+import { router } from 'expo-router';
+import CheckboxButton from '../src/components/buttons/CheckboxButton';
+import { CheckboxProps } from '../src/types/components/checkboxButton';
 
 const AuthScreen = () => {
     const { template, setTemplate, validationSchema } = useTemplateContext();
+    const [isChecked, setIsChecked] = useState<boolean>(false);
 
     // TODO: Loading spinner
     if(!template) {
@@ -28,24 +30,48 @@ const AuthScreen = () => {
         resizeMode: 'cover' as ImageResizeMode
     }
 
-    const handleSwitchAuthFormType = () => {
+    const checkboxCopies: Record<Templates, Pick<CheckboxProps, 'customAction' | 'label' | 'value'>> = {
+        [Templates.Signin]: {
+            label: 'Remember me',
+            value: 'rememberUser',
+        },
+        [Templates.Signup]: {
+            label: 'I agree to the',
+            value: 'termsAndConditions',
+            customAction: {
+                // TODO: Implement custom action for T&C
+                action: () => {},
+                label: 'terms & conditions'
+            }
+        }
+    }
+
+    const handleSwitchAuthFormType = (resetCallback: () => void) => {
         const temp = template.name === Templates.Signin ? Templates.Signup : Templates.Signin;
         setTemplate(temp);
-    }
-        console.log(validationSchema);
+        resetCallback();
+    };
+
+    const handleOnCheck = () => {
+        setIsChecked(prevState => !prevState);
+    };
+
+    const handleGoToForgotPasswordScreen = () => {
+        router.navigate('/forgot-password');
+    };
+
     return (
         <View style={[styles.rootContainer]}>
             <ImageBackground {...imageProps} >
                 <View style={styles.innerContainer}>
                     <View>
                         <Heading style={styles.header} size="2xl">{template.header}</Heading>
-                        <AuthIcon style={styles.icon} />
+                        <AuthIlustration style={styles.icon} />
                     </View>
-                    
                     <Formik initialValues={template.state} validationSchema={validationSchema} onSubmit={values => console.log("VALUES", values)}>
                         {({ handleChange, handleBlur, handleSubmit, values, errors, touched, handleReset }) => (
                             <View style={styles.formInnerContainer}>
-                                <View style={styles.inputsContainer}>
+                                <View style={{gap: SPACINGS.large}}>
                                     {template.fields.map((field: FormInputProps) => {
                                         const isFieldValid = touched[field.id] && errors[field.id];
 
@@ -64,32 +90,48 @@ const AuthScreen = () => {
                                                 icon={field.icon} 
                                             />
                                         )
-                                    })}                            
-                                    <FormFooter templateName={template.name} />
-                                </View>
-
-                                
-                                <View style={styles.actionContainer}>
+                                    })}
+                                    <View style={styles.fomFooterContainer}>
+                                        <CheckboxButton 
+                                            isChecked={isChecked} 
+                                            onCheck={handleOnCheck} 
+                                            {...checkboxCopies[template.name]}
+                                        />
+                                        {template.name === Templates.Signin && (
+                                            <Button 
+                                                label='Forgot password?' 
+                                                onPress={handleGoToForgotPasswordScreen} 
+                                                size='Medium' 
+                                                type='Tertiary' 
+                                                variant='Ghost' 
+                                                dense 
+                                                textStyle={{
+                                                    fontSize: FONT_SIZES.medium,
+                                                    isBold: true,
+                                                }} 
+                                            />
+                                        )}
+                                    </View>
                                     <Button 
                                         fullWidth 
                                         label={template.ctaText} 
                                         onPress={handleSubmit} 
                                         size='Medium' 
-                                        type='Primary' 
+                                        type='Secondary'
                                         variant='Filled' 
                                     />
-                                    <Button 
-                                        label={template.link} 
-                                        onPress={() => {
-                                            handleReset();
-                                            handleSwitchAuthFormType();
-                                        }}
-                                        size='Medium' 
-                                        type='Primary' 
-                                        variant='Ghost'
-                                        selfAlignment='center'
-                                    />
-                                </View> 
+                                </View>
+                                <Button 
+                                    label={template.link} 
+                                    onPress={() => {
+                                        handleSwitchAuthFormType(handleReset);
+                                    }}
+                                    size='Medium' 
+                                    type='Primary' 
+                                    variant='Ghost'
+                                    selfAlignment='center'
+                                    dense
+                                />
                             </View>
                         )}
                     </Formik>
@@ -120,11 +162,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flex: 1
     },
-    inputsContainer: {
-        gap: SPACINGS.large
-    },
-    actionContainer: {
-
+    fomFooterContainer: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'space-between'
     },
     header: {
         alignSelf: "center", 
@@ -134,5 +175,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center', 
         width: 170, 
         height: 170
-    }
+    },
 })

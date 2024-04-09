@@ -3,13 +3,9 @@ import { StyleSheet, View, ImageBackground } from 'react-native';
 import { Heading, Text } from "native-base";
 
 import { COLORS, FONT_SIZES, SPACINGS } from '../src/utils/tokens';
-import Button from '../src/components/buttons/Button';
-import { useTemplateContext } from '../src/context/Template';
-import { Templates } from '../src/types/template';
+import AuthButtons from '../src/components/form/AuthButtons';
 
 const WelcomeScreen = () => {
-    const templateContext = useTemplateContext();
-
     return (
         <ImageBackground source={require('../assets/welcome-screen.png')} resizeMode='cover' style={styles.rootContainer}>
             <View style={styles.innerContainer}>
@@ -23,48 +19,7 @@ const WelcomeScreen = () => {
                     </View>
                 </View>
                 <View style={{ gap: SPACINGS.small }}>
-                    <View style={styles.socialsContainer}>
-                        <Button  
-                            onPress={() => {}}
-                            size='Medium' 
-                            type='Tertiary' 
-                            leftIcon='logo-google'
-                            variant='Filled' 
-                            label='Google'
-                            flex={1}
-                        />
-                        <Button 
-                            onPress={() => {}}
-                            size='Medium' 
-                            type='Tertiary'
-                            leftIcon='logo-facebook'
-                            variant='Filled' 
-                            label='Facebook'
-                            flex={1}
-                        />
-                    </View>
-                        <Button 
-                            fullWidth 
-                            leftIcon='mail-sharp'
-                            onPress={() => templateContext.navigateWithTemplate({template: Templates.Signin, pathname: '/auth'})} 
-                            size='Medium' 
-                            type='Tertiary' 
-                            variant='Filled' 
-                            label='Sign In with email' 
-                        />
-                        <Button  
-                            onPress={() => templateContext.navigateWithTemplate({template: Templates.Signup, pathname: '/auth'})} 
-                            size='Medium' 
-                            type='Secondary' 
-                            variant='Ghost'
-                            textStyle={{
-                                isBold: true,
-                                isUnderline: true
-                            }}
-                            label="Create a new account"
-                            selfAlignment='center'
-                        />
-                    
+                    <AuthButtons />
                     <View style={styles.tncContainer}>
                         <Text color={COLORS.text} textAlign="center">By continuing You agree to the <Text bold>terms of use</Text> and <Text bold>privacy policy</Text></Text>
                     </View>
@@ -80,12 +35,6 @@ const styles = StyleSheet.create({
     rootContainer: {
         flex: 1,
         justifyContent: 'flex-end'
-    },
-    socialsContainer: {
-        gap: SPACINGS.big, 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'center' 
     },
     innerContainer: {
         height: '80%',
