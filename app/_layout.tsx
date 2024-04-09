@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { StyleSheet } from 'react-native'
 import { Stack } from 'expo-router';
 import { StatusBar, StatusBarStyle } from "expo-status-bar";
+import * as WebBrowser from "expo-web-browser";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+
+import { EXPO_WEB_CLIENT_ID } from '@env';
 
 import useImagesLoader from '../src/hooks/useImagesLoader';
 
@@ -10,6 +14,8 @@ import { COLORS } from '../src/utils/tokens';
 import { NativeBaseProvider } from 'native-base';
 import { TemplateContextProvider } from '../src/context/Template';
 import { useFonts, DancingScript_400Regular, DancingScript_500Medium, DancingScript_600SemiBold, DancingScript_700Bold } from '@expo-google-fonts/dancing-script';
+
+WebBrowser.maybeCompleteAuthSession();
 
 export const RootNavigation = () => {
     const statusBar = {
@@ -35,7 +41,6 @@ const RootLayout = () => {
         require('../assets/auth-screen.png'),
     ]);
 
-    // ! NOT WORKING FOR NOW ~ PROBABLY NEED TO WAIT FOR MORE STABLE VERSION OF SDK50
     const [isFontLoaded] = useFonts({
         DancingScript_400Regular,
         DancingScript_500Medium,
@@ -43,11 +48,17 @@ const RootLayout = () => {
         DancingScript_700Bold,
     });
 
+    useEffect(() => { 
+        GoogleSignin.configure({
+            webClientId: EXPO_WEB_CLIENT_ID,
+        });
+    }, []);
+    
     useEffect(() => {
         if (isFontLoaded && imagesLoaded!) {
-          setIsAppLoaded(true);
+            setIsAppLoaded(true);
         }
-      }, [isFontLoaded, imagesLoaded]);
+    }, [isFontLoaded, imagesLoaded]);
 
     return (
         <SplashScreen isLoaded={isAppLoaded}>
