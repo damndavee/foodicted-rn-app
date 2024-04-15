@@ -51,7 +51,7 @@ export const TemplateContextProvider = (props: PropsWithChildren) => {
     )
 };
 
-export const useTemplateContext = () => {{
+export const useTemplateContext = () => {
     const context = useContext(TemplateContext);
 
     if(!context) {
@@ -59,4 +59,4 @@ export const useTemplateContext = () => {{
     }
 
     return context;
-}}
+}
