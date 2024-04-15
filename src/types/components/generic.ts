@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons"
 import { ViewStyle, TextStyle, ImageStyle } from "react-native";
 
-import { COLORS, DIMENSIONS, FONT_SIZES, SPACINGS } from "../../utils/tokens";
+import tokens from "../../utils/tokens";
 
 export type Icon = keyof typeof Ionicons.glyphMap;
 
@@ -42,16 +42,16 @@ export type GenericComponentColorThemeValues = [string, string, string];
 export type GenericComponentSizeValues = [number, number, number];
 
 export const GenericComponentColorThemeMap: Record<GenericComponentType, GenericComponentColorThemeValues> = {
-    [GenericComponentType.Primary]: [COLORS.primary, COLORS.primaryLight, COLORS.tertiary],
-    [GenericComponentType.Secondary]: [COLORS.secondary, COLORS.secondaryLight, COLORS.primaryLight],
-    [GenericComponentType.Tertiary]: [COLORS.tertiary, COLORS.tertiaryLight, COLORS.primary],
+    [GenericComponentType.Primary]: [tokens.color.primary.default, tokens.color.primary.light, tokens.color.tertiary.default],
+    [GenericComponentType.Secondary]: [tokens.color.secondary.default, tokens.color.secondary.light, tokens.color.primary.light],
+    [GenericComponentType.Tertiary]: [tokens.color.tertiary.default, tokens.color.tertiary.light, tokens.color.primary.default],
 };
 
 export const COMPONENT_SIZE: Record<ExcludeComponentSize<'Xsmall'>, GenericComponentSizeValues> = {
-    [GenericComponentSize.Small]: [FONT_SIZES.small, SPACINGS.medium, DIMENSIONS.small],
-    [GenericComponentSize.Medium]: [FONT_SIZES.medium, SPACINGS.medium, DIMENSIONS.medium],
-    [GenericComponentSize.Big]: [FONT_SIZES.big, SPACINGS.big, DIMENSIONS.big],
-    [GenericComponentSize.Large]: [FONT_SIZES.large, SPACINGS.large, DIMENSIONS.large],
+    [GenericComponentSize.Small]: [tokens.fontSize.small, tokens.spacing.medium, tokens.dimensions.small],
+    [GenericComponentSize.Medium]: [tokens.fontSize.medium, tokens.spacing.medium, tokens.dimensions.medium],
+    [GenericComponentSize.Big]: [tokens.fontSize.big, tokens.spacing.big, tokens.dimensions.big],
+    [GenericComponentSize.Large]: [tokens.fontSize.large, tokens.spacing.large, tokens.dimensions.large],
 }
 
 export const GenericComponentTypographyMap = {};

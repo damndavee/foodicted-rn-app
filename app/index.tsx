@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, ImageBackground } from 'react-native';
 import { Heading, Text } from "native-base";
 
-import { COLORS, FONT_SIZES, SPACINGS } from '../src/utils/tokens';
+import tokens from '../src/utils/tokens';
 import AuthButtons from '../src/components/form/AuthButtons';
 
 const WelcomeScreen = () => {
@@ -14,14 +14,14 @@ const WelcomeScreen = () => {
                         <Heading style={styles.heading} size="2xl" >Fooddicted</Heading>
                     </View>
                     <View style={styles.description}>
-                        <Text style={[styles.descriptionHeader, {color: COLORS.secondaryLight}]}>Get Your cooking</Text>
-                        <Text style={[styles.descriptionText, {color: COLORS.secondaryLight}]}>easier than it used to!</Text>
+                        <Text style={[styles.descriptionHeader, {color: tokens.color.secondary.light }]}>Get Your cooking</Text>
+                        <Text style={[styles.descriptionText, {color: tokens.color.secondary.light }]}>easier than it used to!</Text>
                     </View>
                 </View>
-                <View style={{ gap: SPACINGS.small }}>
+                <View style={{ gap: tokens.spacing.small }}>
                     <AuthButtons />
                     <View style={styles.tncContainer}>
-                        <Text color={COLORS.text} textAlign="center">By continuing You agree to the <Text bold>terms of use</Text> and <Text bold>privacy policy</Text></Text>
+                        <Text color={tokens.color.text} textAlign="center">By continuing You agree to the <Text bold>terms of use</Text> and <Text bold>privacy policy</Text></Text>
                     </View>
                 </View>
             </View>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         height: '80%',
-        padding: SPACINGS.xlarge,
+        padding: tokens.spacing.xlarge,
         justifyContent: 'space-between'
     },
     descriptionContainer: {
@@ -49,23 +49,23 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontFamily: 'DancingScript_600SemiBold',
-        color: COLORS.secondary
+        color: tokens.color.secondary.default
     },
     description: {
-        marginTop: SPACINGS.small,
+        marginTop: tokens.spacing.small,
         width: '70%',
     },
     descriptionHeader: {
-        paddingTop: SPACINGS.xsmall,
+        paddingTop: tokens.spacing.xsmall,
         fontWeight: 'bold',
-        fontSize: FONT_SIZES.big
+        fontSize: tokens.fontSize.big
     },
     descriptionText: {
-        fontSize: FONT_SIZES.big,
+        fontSize: tokens.fontSize.big,
         fontWeight: 'bold',
     },
     tncContainer: {
-        marginTop: SPACINGS.xlarge,
+        marginTop: tokens.spacing.xlarge,
         alignSelf: 'center',
         width: '90%',
         alignItems: 'center',

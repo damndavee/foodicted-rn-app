@@ -3,7 +3,7 @@ import { FormControl, IInputProps, Input, InputGroup, InputLeftAddon, WarningOut
 import { Ionicons } from "@expo/vector-icons";
 
 import { FormInputProps } from "../../types/components/formInput";
-import { COLORS, FONT_SIZES } from '../../utils/tokens';
+import tokens from '../../utils/tokens';
 import { ExcludeComponentVariant, GenericComponentVariant, StyleProps } from '../../types/components/generic';
 
 const FormInput = (props: FormInputProps) => {
@@ -12,8 +12,8 @@ const FormInput = (props: FormInputProps) => {
     return props.icon && (
       <Ionicons
         name={props.icon} 
-        size={FONT_SIZES.large} 
-        color={props.variant === "Filled" ? "white" : COLORS.secondaryDark}
+        size={tokens.fontSize.large} 
+        color={props.variant === "Filled" ? "white" : tokens.color.secondary.dark}
       />
     )
   };
@@ -25,10 +25,10 @@ const FormInput = (props: FormInputProps) => {
   };
 
   const inputProps: IInputProps = {
-    fontSize: FONT_SIZES.medium,
+    fontSize: tokens.fontSize.medium,
     onChangeText: props.onChange,
     placeholder: props.placeholder,
-    placeholderTextColor: props.variant === "Filled" ? "lightText" : COLORS.secondaryDark,
+    placeholderTextColor: props.variant === "Filled" ? "lightText" : tokens.color.secondary.dark,
     type: props.type,
     value: props.value,
     flex: 1,
@@ -40,11 +40,11 @@ const FormInput = (props: FormInputProps) => {
           <InputLeftAddon style={styles.inputLeftAddon} children={renderAddonIcon()} />
           <Input borderWidth={0} {...inputProps} />
           <FormControl.ErrorMessage 
-            backgroundColor={COLORS.warning} 
-            _text={{color: COLORS.danger, textAlign: 'justify', textBreakStrategy: 'balanced' }}
+            backgroundColor={tokens.color.warning} 
+            _text={{color: tokens.color.danger, textAlign: 'justify', textBreakStrategy: 'balanced' }}
             padding={1}
             w='full'
-            leftIcon={<WarningOutlineIcon style={{ margin: 5 }} />} 
+            leftIcon={<WarningOutlineIcon style={{ margin: tokens.spacing.xsmall }} />} 
           >
             {props.errorMessage}
           </FormControl.ErrorMessage>
@@ -55,13 +55,13 @@ const FormInput = (props: FormInputProps) => {
   
 const styles = StyleSheet.create({
   outline: {
-    borderRadius: 5,             
+    borderRadius: tokens.radius.medium,             
     borderWidth: 1.5,
-    borderColor: COLORS.secondaryDark,
+    borderColor: tokens.color.secondary.dark,
   },
   filled: {
-    backgroundColor: COLORS.text,
-    borderRadius: 5,
+    backgroundColor: tokens.color.text,
+    borderRadius: tokens.radius.medium,
     borderWidth: 0,
   },
   underline: {
@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     borderWidth: 0,
     borderBottomWidth: 1.5,
-    borderColor: COLORS.secondaryDark,
+    borderColor: tokens.color.secondary.dark,
   },
   inputLeftAddon: {
     borderWidth: 0,
-    backgroundColor: COLORS.primary,
+    backgroundColor: tokens.color.primary.default,
     borderRightWidth: 1.5,
-    borderColor: COLORS.secondaryDark,
+    borderColor: tokens.color.secondary.dark,
   }
 })
 

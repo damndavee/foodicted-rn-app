@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { StyleSheet } from 'react-native'
 import { Stack } from 'expo-router';
 import { StatusBar, StatusBarStyle } from "expo-status-bar";
 import * as WebBrowser from "expo-web-browser";
@@ -10,7 +9,7 @@ import { EXPO_WEB_CLIENT_ID } from '@env';
 import useImagesLoader from '../src/hooks/useImagesLoader';
 
 import SplashScreen from '../src/components/Splash';
-import { COLORS } from '../src/utils/tokens';
+import tokens from '../src/utils/tokens';
 import { NativeBaseProvider } from 'native-base';
 import { TemplateContextProvider } from '../src/context/Template';
 import { useFonts, DancingScript_400Regular, DancingScript_500Medium, DancingScript_600SemiBold, DancingScript_700Bold } from '@expo-google-fonts/dancing-script';
@@ -20,7 +19,7 @@ WebBrowser.maybeCompleteAuthSession();
 export const RootNavigation = () => {
     const statusBar = {
         statusBarStyle: 'dark' as StatusBarStyle,
-        statusBarColor: COLORS.primaryLight
+        statusBarColor: tokens.color.primary.light
     };
 
     return (
@@ -73,5 +72,3 @@ const RootLayout = () => {
 }
 
 export default RootLayout;
-
-const styles = StyleSheet.create({})

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Pressable, DimensionValue, View, TextStyle } from 'react-native';
+import { StyleSheet, Pressable, DimensionValue, View } from 'react-native';
 import { Text } from "native-base";
 
 import { ButtonProps } from '../../types/components/button';
 import { GenericComponentVariant, GenericComponentColorThemeMap, GenericComponentColorThemeIndex, GenericComponentSizeIndex, COMPONENT_SIZE, StyleProps } from '../../types/components/generic';
+import tokens from '../../utils/tokens';
 
 const Button = (props: ButtonProps) => {
     const getButtonStyles = (pressed: boolean, isText: boolean = false): StyleProps  => {
@@ -66,6 +67,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 8,
+        borderRadius: tokens.radius.big,
     }
 })

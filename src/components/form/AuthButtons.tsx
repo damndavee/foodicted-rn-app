@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { COLORS, FONT_SIZES } from '../../utils/tokens';
+import tokens from '../../utils/tokens';
 import { Divider } from 'native-base';
 import Icon from '../utils/Icon';
 import Button from '../buttons/Button';
@@ -18,17 +18,17 @@ const AuthButtons = () => {
 
     const defaultIconProps: Omit<IconProps, 'name'> = {
         variant: 'Filled',
-        radius: 10,
+        radius: tokens.radius.large,
         size: 'Medium',
         type: 'Primary'
     };
 
     return (
         <View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
-                <Divider flex={1} thickness={1} bgColor={COLORS.primaryDark} />
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.big }}>
+                <Divider flex={1} thickness={1} bgColor={tokens.color.primary.dark} />
                 <Text style={styles.additionalLoginText}>Sign in methods</Text>
-                <Divider flex={1} thickness={1} bgColor={COLORS.primaryDark} />
+                <Divider flex={1} thickness={1} bgColor={tokens.color.primary.dark} />
             </View>
             <View style={styles.additionalLoginContainer}>
                 <Icon name="logo-google" {...defaultIconProps} onPress={Google.signIn} />
@@ -56,14 +56,14 @@ export default AuthButtons;
 
 const styles = StyleSheet.create({
     additionalLoginText: {
-        fontSize: FONT_SIZES.medium,
-        color: COLORS.primaryDark
+        fontSize: tokens.fontSize.medium,
+        color: tokens.color.primary.dark
     },
     additionalLoginContainer: {
-        marginTop: 15,
+        marginTop: tokens.spacing.big,
         flexDirection: 'row', 
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 20
+        gap: tokens.spacing.xlarge
     },
 });
