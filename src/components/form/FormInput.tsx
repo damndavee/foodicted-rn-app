@@ -1,5 +1,5 @@
-import { View, StyleSheet, Text } from 'react-native';
-import { FormControl, Input, WarningOutlineIcon } from "native-base";
+import { StyleSheet } from 'react-native';
+import { FormControl, IInputProps, Input, InputGroup, InputLeftAddon, WarningOutlineIcon } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 
 import { FormInputProps } from "../../types/components/formInput";
@@ -7,14 +7,14 @@ import { COLORS, FONT_SIZES } from '../../utils/tokens';
 import { ExcludeComponentVariant, GenericComponentVariant, StyleProps } from '../../types/components/generic';
 
 const FormInput = (props: FormInputProps) => {
-  const renderLeftInputElement = () => {
-    return props.icon &&  (
-        <Ionicons
-          style={{paddingLeft: 5}}
-          name={props.icon} 
-          size={FONT_SIZES.big} 
-          color={props.variant === "Filled" ? "white" : COLORS.secondaryDark}
-        />
+
+  const renderAddonIcon = () => {
+    return props.icon && (
+      <Ionicons
+        name={props.icon} 
+        size={FONT_SIZES.large} 
+        color={props.variant === "Filled" ? "white" : COLORS.secondaryDark}
+      />
     )
   };
 
@@ -24,37 +24,39 @@ const FormInput = (props: FormInputProps) => {
     [GenericComponentVariant.Underline]: styles.underline
   };
 
-  const inputProps = {
-    ...INPUT_VARIANT_STYLES[props.variant],
+  const inputProps: IInputProps = {
     fontSize: FONT_SIZES.medium,
     onChangeText: props.onChange,
     placeholder: props.placeholder,
     placeholderTextColor: props.variant === "Filled" ? "lightText" : COLORS.secondaryDark,
-    leftElement: renderLeftInputElement(),
     type: props.type,
-    value: props.value
+    value: props.value,
+    flex: 1,
   }
 
   return (
     <FormControl isInvalid={!props.isValid}>
-        <Input {...inputProps} borderBottomColor={'yellow.300'} />
-        <FormControl.ErrorMessage 
-          backgroundColor={COLORS.warning} 
-          _text={{color: COLORS.danger, textAlign: 'justify', textBreakStrategy: 'balanced' }}
-          padding={1}
-          w='full'
-          leftIcon={<WarningOutlineIcon style={{ margin: 5 }} />} 
-        >
-          {props.errorMessage}
-        </FormControl.ErrorMessage>
+        <InputGroup {...INPUT_VARIANT_STYLES[props.variant]} >
+          <InputLeftAddon style={styles.inputLeftAddon} children={renderAddonIcon()} />
+          <Input borderWidth={0} {...inputProps} />
+          <FormControl.ErrorMessage 
+            backgroundColor={COLORS.warning} 
+            _text={{color: COLORS.danger, textAlign: 'justify', textBreakStrategy: 'balanced' }}
+            padding={1}
+            w='full'
+            leftIcon={<WarningOutlineIcon style={{ margin: 5 }} />} 
+          >
+            {props.errorMessage}
+          </FormControl.ErrorMessage>
+        </InputGroup>
     </FormControl>
   )
 };
-
+  
 const styles = StyleSheet.create({
   outline: {
-    borderRadius: 5,
-    borderWidth: 2,
+    borderRadius: 5,             
+    borderWidth: 1.5,
     borderColor: COLORS.secondaryDark,
   },
   filled: {
@@ -66,9 +68,15 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderRadius: 0,
     borderWidth: 0,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1.5,
     borderColor: COLORS.secondaryDark,
   },
+  inputLeftAddon: {
+    borderWidth: 0,
+    backgroundColor: COLORS.primary,
+    borderRightWidth: 1.5,
+    borderColor: COLORS.secondaryDark,
+  }
 })
 
 export default FormInput
