@@ -39,6 +39,7 @@ const FormInput = (props: FormInputProps) => {
         <InputGroup {...INPUT_VARIANT_STYLES[props.variant]} >
           <InputLeftAddon style={styles.inputLeftAddon} children={renderAddonIcon()} />
           <Input borderWidth={0} {...inputProps} />
+        </InputGroup>
           <FormControl.ErrorMessage 
             backgroundColor={tokens.color.warning} 
             _text={{color: tokens.color.danger, textAlign: 'justify', textBreakStrategy: 'balanced' }}
@@ -48,11 +49,10 @@ const FormInput = (props: FormInputProps) => {
           >
             {props.errorMessage}
           </FormControl.ErrorMessage>
-        </InputGroup>
     </FormControl>
   )
 };
-  
+
 const styles = StyleSheet.create({
   outline: {
     borderRadius: tokens.radius.medium,             
