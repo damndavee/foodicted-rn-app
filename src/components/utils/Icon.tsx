@@ -3,6 +3,7 @@ import { Pressable } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import { IconProps } from "../../types/components/icon";
 import { GenericComponentColorThemeMap, GenericComponentColorThemeIndex } from "../../types/components/generic";
+import tokens from "../../utils/tokens";
 
 const Icon = (props: IconProps) => {
     const sizesMap = {
@@ -16,7 +17,7 @@ const Icon = (props: IconProps) => {
     const iconProps = {
         name: props.name,
         size: sizesMap[props.size],
-        padding: props.variant === 'Ghost' ? 0 : sizesMap[props.size] / 5,
+        padding: props.variant === 'Ghost' ? 0 : sizesMap[props.size] / tokens.radius.medium,
     };
 
     const onPressHandler = () => {

@@ -4,7 +4,7 @@ import { Heading } from 'native-base';
 
 import Button from '../src/components/buttons/Button';
 import { useTemplateContext } from '../src/context/Template';
-import { COLORS, FONT_SIZES, SPACINGS } from '../src/utils/tokens';
+import tokens from '../src/utils/tokens';
 
 import { Templates } from '../src/types/template';
 import FormInput from '../src/components/form/FormInput';
@@ -71,7 +71,7 @@ const AuthScreen = () => {
                     <Formik initialValues={template.state} validationSchema={validationSchema} onSubmit={values => console.log("VALUES", values)}>
                         {({ handleChange, handleBlur, handleSubmit, values, errors, touched, handleReset }) => (
                             <View style={styles.formInnerContainer}>
-                                <View style={{gap: SPACINGS.large}}>
+                                <View style={{gap: tokens.spacing.large}}>
                                     {template.fields.map((field: FormInputProps) => {
                                         const isFieldValid = touched[field.id] && errors[field.id];
 
@@ -106,7 +106,7 @@ const AuthScreen = () => {
                                                 variant='Ghost' 
                                                 dense 
                                                 textStyle={{
-                                                    fontSize: FONT_SIZES.medium,
+                                                    fontSize: tokens.fontSize.medium,
                                                     isBold: true,
                                                 }} 
                                             />
@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         height: '95%',
-        padding: SPACINGS.large,
-        gap: SPACINGS.large + 10,
+        padding: tokens.spacing.large,
+        gap: tokens.spacing.large + 10,
         justifyContent: 'space-between',
     },
     formInnerContainer: {
@@ -169,11 +169,11 @@ const styles = StyleSheet.create({
     },
     header: {
         alignSelf: "center", 
-        color: COLORS.tertiaryLight,
+        color: tokens.color.tertiary.light,
     },
     icon: {
         alignSelf: 'center', 
-        width: 170, 
-        height: 170
+        width: tokens.dimensions.large, 
+        height: tokens.dimensions.large
     },
 })
