@@ -9,7 +9,6 @@ import { NativeBaseProvider } from 'native-base';
 import { TemplateContextProvider } from '../src/context/Template';
 import { useFonts, DancingScript_400Regular, DancingScript_500Medium, DancingScript_600SemiBold, DancingScript_700Bold } from '@expo-google-fonts/dancing-script';
 import { WideAppContextProvider } from "../src/context/App";
-import TokenExpirationChecker from "../src/utils/components/TokenExpirationChecker";
 import useAuthProviders from "../src/hooks/useAuthProviders";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -68,7 +67,6 @@ const RootLayout = () => {
                     <TemplateContextProvider>
                         <StatusBar animated />
                         <RootNavigation />
-                        <TokenExpirationChecker />
                     </TemplateContextProvider>
                 </WideAppContextProvider>
             </NativeBaseProvider>
