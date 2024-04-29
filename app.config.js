@@ -1,4 +1,8 @@
-export default {
+const appid = process.env.EXPO_PUBLIC_FB_APP_ID;
+const clientToken = process.env.EXPO_PUBLIC_FB_CLIENT_TOKEN;
+const scheme = process.env.EXPO_PUBLIC_FB_SCHEME;
+
+module.exports =  {
   "expo": {
     "name": "Foodicted",
     "slug": "foodicted-rn-app",
@@ -33,6 +37,8 @@ export default {
     },
     "plugins": [
       "expo-router",
+      "expo-tracking-transparency",
+      "expo-secure-store",
       [
         "expo-font",
         {
@@ -42,7 +48,20 @@ export default {
             "./node_modules/@expo-google-fonts/dancing-script/DancingScript_600SemiBold.ttf"
           ]
         }
-      ]
+      ],
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": appid || 'placeholder',
+          "clientToken": clientToken,
+          "displayName": "Foodicted",
+          "scheme": scheme,
+          "advertiserIDCollectionEnabled": false,
+          "autoLogAppEventsEnabled": false,
+          "isAutoInitEnabled": true,
+          "iosUserTrackingPermission": "This identifier will be used to deliver personalized ads to you."
+        }
+      ],
     ],
     "extra": {
       "router": {

@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 import { Stack } from 'expo-router';
 import { StatusBar, StatusBarStyle } from "expo-status-bar";
 import * as WebBrowser from "expo-web-browser";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-
-import { EXPO_WEB_CLIENT_ID } from '@env';
-
 import useImagesLoader from '../src/hooks/useImagesLoader';
-
 import SplashScreen from '../src/components/Splash';
 import tokens from '../src/utils/tokens';
 import { NativeBaseProvider } from 'native-base';
 import { TemplateContextProvider } from '../src/context/Template';
 import { useFonts, DancingScript_400Regular, DancingScript_500Medium, DancingScript_600SemiBold, DancingScript_700Bold } from '@expo-google-fonts/dancing-script';
+import { WideAppContextProvider } from "../src/context/App";
+import useAuthProviders from "../src/hooks/useAuthProviders";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -27,12 +24,15 @@ export const RootNavigation = () => {
             <Stack.Screen name='index' options={{ headerShown: false }} />
             <Stack.Screen name='auth' options={{ headerShown: false }} />
             <Stack.Screen name='forgotPassword' />
+            <Stack.Screen name='onboarding' />
         </Stack>
     )
 }
 
 const RootLayout = () => {
     const [isAppLoaded, setIsAppLoaded] = useState<boolean>(false);
+
+    const { AppleAuthentication, GoogleAuthentication, FacebookAuthentication } = useAuthProviders();
 
     const [imagesLoaded] = useImagesLoader([
         require('../assets/splash-screen.png'),
@@ -48,10 +48,11 @@ const RootLayout = () => {
     });
 
     useEffect(() => { 
-        GoogleSignin.configure({
-            webClientId: EXPO_WEB_CLIENT_ID,
-        });
+        GoogleAuthentication.init();
+        AppleAuthentication.init(); 
+        FacebookAuthentication.init();
     }, []);
+    
     
     useEffect(() => {
         if (isFontLoaded && imagesLoaded!) {
@@ -62,10 +63,12 @@ const RootLayout = () => {
     return (
         <SplashScreen isLoaded={isAppLoaded}>
             <NativeBaseProvider>
-                <TemplateContextProvider>
-                    <StatusBar animated />
-                    <RootNavigation />
-                </TemplateContextProvider>
+                <WideAppContextProvider>
+                    <TemplateContextProvider>
+                        <StatusBar animated />
+                        <RootNavigation />
+                    </TemplateContextProvider>
+                </WideAppContextProvider>
             </NativeBaseProvider>
         </SplashScreen>
     )
