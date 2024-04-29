@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import tokens from '../../utils/tokens';
 import { Divider } from 'native-base';
 import Icon from '../utils/Icon';
@@ -10,7 +10,7 @@ import useAuthProviders from '../../hooks/useAuthProviders';
 
 const AuthButtons = () => {
     const templateContext = useTemplateContext();
-    const { Google } = useAuthProviders();
+    const { GoogleAuthentication, FacebookAuthentication, AppleAuthentication } = useAuthProviders();
 
     const handleNavigateWithTemplate = (template: Templates) => {
         templateContext.navigateWithTemplate(({template, pathname: '/auth'}));
@@ -22,6 +22,8 @@ const AuthButtons = () => {
         size: 'Medium',
         type: 'Primary'
     };
+    
+    // TODO: utworzyć array z buttonami (nie generować 4x)
 
     return (
         <View>
@@ -31,9 +33,9 @@ const AuthButtons = () => {
                 <Divider flex={1} thickness={1} bgColor={tokens.color.primary.dark} />
             </View>
             <View style={styles.additionalLoginContainer}>
-                <Icon name="logo-google" {...defaultIconProps} onPress={Google.signIn} />
-                <Icon name="logo-apple" {...defaultIconProps} onPress={Google.logout} />
-                <Icon name="logo-facebook" {...defaultIconProps} />
+                <Icon name="logo-google" {...defaultIconProps} onPress={GoogleAuthentication.signin} />
+                <Icon name="logo-apple" {...defaultIconProps} onPress={AppleAuthentication.signin} />
+                <Icon name="logo-facebook" {...defaultIconProps} onPress={FacebookAuthentication.signin} />
                 <Icon name="mail-open" {...defaultIconProps} onPress={() => handleNavigateWithTemplate(Templates.Signin)} />
             </View>
             <Button  
