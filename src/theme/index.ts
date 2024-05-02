@@ -6,8 +6,7 @@ export const theme = extendTheme({
         ...fonts
     },
     fonts: {
-        heading: "AmaticSC",
-        body: "Lato",
-        mono: "SpaceMono",
+        heading: "Amatica",
+        body: "Poppins",
     },
 });
