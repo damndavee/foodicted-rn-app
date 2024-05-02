@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import MaskInput from 'react-native-mask-input';
 import { Select, View, Text } from 'native-base'
 import tokens from '../../utils/tokens';
-import { PhoneInputProps } from '../../types/components/phoneInput';
+import { PhoneInputProps } from '../../types/components/props/phoneInput';
 import { PHONE_CODES_WITH_MASK_DATA } from '../../utils/data';
 
 const PhoneInput = (props: PhoneInputProps) => {

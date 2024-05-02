@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { Heading, Pressable } from "native-base"
-import { ListItemProps } from "../../types/components/listItem"
+import { ListItemProps } from "../../types/components/props/listItem"
 import tokens from '../../utils/tokens';
 
 import Icon from '../../components/utils/Icon';

@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { Pressable } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
-import { IconProps } from "../../types/components/icon";
+import { IconProps } from "../../types/components/props/icon";
 import { GenericComponentColorThemeMap, GenericComponentColorThemeIndex } from "../../types/components/generic";
 import tokens from "../../utils/tokens";
 

@@ -1,4 +1,4 @@
-import { ListItemInputData } from "../types/components/listItem";
+import { ListItemInputData } from "../types/components/props/listItem";
 
 export const FORGOT_PASSWORD_SCREEN_DATA: ListItemInputData[] = [
     {

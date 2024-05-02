@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Pressable, DimensionValue, View } from 'react-native';
 import { Text } from "native-base";
 
-import { ButtonProps } from '../../types/components/button';
+import { ButtonProps } from '../../types/components/props/button';
 import { GenericComponentVariant, GenericComponentColorThemeMap, GenericComponentColorThemeIndex, GenericComponentSizeIndex, COMPONENT_SIZE, StyleProps } from '../../types/components/generic';
 import tokens from '../../utils/tokens';
 

@@ -5,7 +5,7 @@ import Icon from '../utils/Icon';
 import Button from '../buttons/Button';
 import { useTemplateContext } from '../../context/Template';
 import { Templates } from '../../types/template';
-import { IconProps } from '../../types/components/icon';
+import { IconProps } from '../../types/components/props/icon';
 import useAuthProviders from '../../hooks/useAuthProviders';
 
 const AuthButtons = () => {

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { FormControl, IInputProps, Input, InputGroup, InputLeftAddon, WarningOutlineIcon } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 
-import { FormInputProps } from "../../types/components/formInput";
+import { FormInputProps } from "../../types/components/props/formInput";
 import tokens from '../../utils/tokens';
 import { ExcludeComponentVariant, GenericComponentVariant, StyleProps } from '../../types/components/generic';
 

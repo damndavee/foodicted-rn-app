@@ -1,5 +1,5 @@
 import { FlexAlignType } from 'react-native/types';
-import { GenericComponentType, Icon, ExcludeComponentVariant, ExcludeComponentSize } from './generic';
+import { GenericComponentType, Icon, ExcludeComponentVariant, ExcludeComponentSize } from '../generic';
 
 interface ButtonFontStyle {
     fontSize?: number;

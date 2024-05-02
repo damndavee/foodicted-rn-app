@@ -2,7 +2,7 @@ import { Checkbox } from 'native-base';
 import { StyleSheet, Text } from 'react-native';
 import Button from './Button';
 import tokens from '../../utils/tokens';
-import { CheckboxProps } from '../../types/components/checkboxButton';
+import { CheckboxProps } from '../../types/components/props/checkboxButton';
 
 const CheckboxButton = (props: CheckboxProps) => {
     return (

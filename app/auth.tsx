@@ -8,12 +8,12 @@ import tokens from '../src/utils/tokens';
 
 import { Templates } from '../src/types/template';
 import FormInput from '../src/components/form/FormInput';
-import { FormInputProps } from '../src/types/components/formInput';
+import { FormInputProps } from '../src/types/components/props/formInput';
 import { Formik } from 'formik';
 import { AuthIlustration } from '../src/components/utils/Ilustration';
 import { router } from 'expo-router';
 import CheckboxButton from '../src/components/buttons/CheckboxButton';
-import { CheckboxProps } from '../src/types/components/checkboxButton';
+import { CheckboxProps } from '../src/types/components/props/checkboxButton';
 
 const AuthScreen = () => {
     const { template, setTemplate, validationSchema } = useTemplateContext();
