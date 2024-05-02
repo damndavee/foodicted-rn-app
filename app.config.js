@@ -9,10 +9,10 @@ module.exports =  {
     "scheme": "foodicted",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/foreground.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/ic_launcher.png",
+    "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash-screen.png",
+      "image": "./assets/ic_launcher.png",
       "resizeMode": "cover",
       "backgroundColor": "#F3C58B"
     },
@@ -26,7 +26,7 @@ module.exports =  {
     },
     "android": {
       "adaptiveIcon": { 
-        "foregroundImage": "./assets/ic_launcher.png",
+        "foregroundImage": "./assets/foreground.png",
         "backgroundColor": "#F3C58B"
       },
       "package": "com.noncomp.foodicted",
@@ -39,16 +39,6 @@ module.exports =  {
       "expo-router",
       "expo-tracking-transparency",
       "expo-secure-store",
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./node_modules/@expo-google-fonts/dancing-script/DancingScript_400Regular.ttf",
-            "./node_modules/@expo-google-fonts/dancing-script/DancingScript_500Medium.ttf",
-            "./node_modules/@expo-google-fonts/dancing-script/DancingScript_600SemiBold.ttf"
-          ]
-        }
-      ],
       [
         "react-native-fbsdk-next",
         {
