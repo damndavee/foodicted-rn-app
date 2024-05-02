@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { Stack } from 'expo-router';
+import { useFonts } from 'expo-font';
 import { StatusBar, StatusBarStyle } from "expo-status-bar";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as WebBrowser from "expo-web-browser";
 import useImagesLoader from '../src/hooks/useImagesLoader';
 import SplashScreen from '../src/components/Splash';
 import tokens from '../src/utils/tokens';
 import { NativeBaseProvider } from 'native-base';
 import { TemplateContextProvider } from '../src/context/Template';
-import { useFonts, DancingScript_400Regular, DancingScript_500Medium, DancingScript_600SemiBold, DancingScript_700Bold } from '@expo-google-fonts/dancing-script';
+
 import { WideAppContextProvider } from "../src/context/App";
 import useAuthProviders from "../src/hooks/useAuthProviders";
+import { theme } from "../src/theme";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -40,29 +43,42 @@ const RootLayout = () => {
         require('../assets/auth-screen.png'),
     ]);
 
-    const [isFontLoaded] = useFonts({
-        DancingScript_400Regular,
-        DancingScript_500Medium,
-        DancingScript_600SemiBold,
-        DancingScript_700Bold,
-    });
-
+    const [isFontLoaded, fontError] = useFonts({
+        SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+        AmaticSCRegular: require('../assets/fonts/AmaticSC-Bold.ttf'),
+        AmaticSCBold: require('../assets/fonts/AmaticSC-Regular.ttf'),
+        LatoBlack: require('../assets/fonts/Lato-Black.ttf'),
+        LatoBlackItalic: require('../assets/fonts/Lato-BlackItalic.ttf'),
+        LatoBold: require('../assets/fonts/Lato-Bold.ttf'),
+        LatoBoldItalic: require('../assets/fonts/Lato-BoldItalic.ttf'),
+        LatoItalic: require('../assets/fonts/Lato-Italic.ttf'),
+        LatoLight: require('../assets/fonts/Lato-Light.ttf'),
+        LatoLightItalic: require('../assets/fonts/Lato-LightItalic.ttf'),
+        LatoRegular: require('../assets/fonts/Lato-Regular.ttf'),
+        LatoThin: require('../assets/fonts/Lato-Thin.ttf'),
+        LatoThinItalic: require('../assets/fonts/Lato-ThinItalic.ttf'),
+        ...FontAwesome.font
+    }); 
+    
     useEffect(() => { 
         GoogleAuthentication.init();
         AppleAuthentication.init(); 
         FacebookAuthentication.init();
     }, []);
-    
-    
+
     useEffect(() => {
-        if (isFontLoaded && imagesLoaded!) {
+        if (isFontLoaded && imagesLoaded) {
             setIsAppLoaded(true);
         }
-    }, [isFontLoaded, imagesLoaded]);
+    }, [isFontLoaded]);
+    
+    if (!isFontLoaded && !imagesLoaded) {
+        return null;
+    }
 
     return (
         <SplashScreen isLoaded={isAppLoaded}>
-            <NativeBaseProvider>
+            <NativeBaseProvider theme={theme}>
                 <WideAppContextProvider>
                     <TemplateContextProvider>
                         <StatusBar animated />

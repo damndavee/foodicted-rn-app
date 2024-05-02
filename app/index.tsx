@@ -9,13 +9,21 @@ const WelcomeScreen = () => {
     return (
         <ImageBackground source={require('../assets/welcome-screen.png')} resizeMode='cover' style={styles.rootContainer}>
             <View style={styles.innerContainer}>
-                <View style={styles.descriptionContainer}>
+                <View style={styles.descriptionContainer}> 
                     <View style={styles.headingContainer}>
-                        <Heading style={styles.heading} size="2xl" >Fooddicted</Heading>
+                        <Heading 
+                            fontFamily='heading' 
+                            fontWeight={900}
+                            bold
+                            style={styles.heading} 
+                            size="4xl"
+                        >
+                            Fooddicted
+                        </Heading>
                     </View>
                     <View style={styles.description}>
-                        <Text style={[styles.descriptionHeader, {color: tokens.color.secondary.light }]}>Get Your cooking</Text>
-                        <Text style={[styles.descriptionText, {color: tokens.color.secondary.light }]}>easier than it used to!</Text>
+                        <Text fontWeight={400} style={[styles.descriptionHeader, {color: tokens.color.secondary.light }]}>Get Your cooking</Text>
+                        <Text fontWeight={400} style={[styles.descriptionText, {color: tokens.color.secondary.light }]}>easier than it used to!</Text>
                     </View>
                 </View>
                 <View style={{ gap: tokens.spacing.small }}>
@@ -48,8 +56,7 @@ const styles = StyleSheet.create({
         elevation: 2,
     },
     heading: {
-        fontFamily: 'DancingScript_600SemiBold',
-        color: tokens.color.secondary.default
+        color: tokens.color.secondary.default,
     },
     description: {
         marginTop: tokens.spacing.small,
@@ -57,12 +64,10 @@ const styles = StyleSheet.create({
     },
     descriptionHeader: {
         paddingTop: tokens.spacing.xsmall,
-        fontWeight: 'bold',
-        fontSize: tokens.fontSize.big
+        fontSize: tokens.fontSize.large
     },
     descriptionText: {
-        fontSize: tokens.fontSize.big,
-        fontWeight: 'bold',
+        fontSize: tokens.fontSize.large,
     },
     tncContainer: {
         marginTop: tokens.spacing.xlarge,
