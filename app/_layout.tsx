@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { Stack } from 'expo-router';
-import { StatusBar } from "expo-status-bar";
 import * as ExpoSplashScreen from 'expo-splash-screen';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as WebBrowser from "expo-web-browser";
 import useImagesLoader from '../src/hooks/useImagesLoader';
 import tokens from '../src/utils/tokens';
-import { NativeBaseProvider } from 'native-base';
+import { NativeBaseProvider, StatusBar } from 'native-base';
 import { TemplateContextProvider } from '../src/context/Template';
 import { 
     useFonts as useGoogleFonts, 
@@ -103,8 +102,8 @@ const RootLayout = () => {
         <NativeBaseProvider theme={theme}>
             <WideAppContextProvider>
                 <TemplateContextProvider>
+                    <StatusBar animated translucent={false} barStyle='dark-content' backgroundColor={tokens.color.primary.light} />
                     <RootNavigation />
-                    <StatusBar animated translucent={false} style="dark" backgroundColor={tokens.color.primary.light} />
                 </TemplateContextProvider>
             </WideAppContextProvider>
         </NativeBaseProvider>
