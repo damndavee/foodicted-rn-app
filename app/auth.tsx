@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ImageBackground, ImageResizeMode } from 'react-native';
+import { StyleSheet, View, ImageBackground, ImageResizeMode, Text } from 'react-native';
 import { Heading } from 'native-base';
 
 import Button from '../src/components/buttons/Button';
@@ -73,7 +73,7 @@ const AuthScreen = () => {
                             <View style={styles.formInnerContainer}>
                                 <View style={{gap: tokens.spacing.large}}>
                                     {template.fields.map((field: FormInputProps) => {
-                                        const isFieldValid = touched[field.id] && errors[field.id];
+                                        const isFieldValid = errors[field.id];
 
                                         return (
                                             <FormInput
