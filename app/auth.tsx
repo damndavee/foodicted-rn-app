@@ -65,7 +65,7 @@ const AuthScreen = () => {
             <ImageBackground {...imageProps} >
                 <View style={styles.innerContainer}>
                     <View>
-                        <Heading style={styles.header} size="2xl">{template.header}</Heading>
+                        <Heading fontFamily='heading' fontWeight={700} style={styles.header} size="3xl">{template.header}</Heading>
                         <AuthIlustration style={styles.icon} />
                     </View>
                     <Formik initialValues={template.state} validationSchema={validationSchema} onSubmit={values => console.log("VALUES", values)}>
