@@ -34,6 +34,7 @@ import { AmaticaSC_Bold700, AmaticaSC_Regular400 } from '@expo-google-fonts/amat
 import { WideAppContextProvider } from "../src/context/App";
 import useAuthProviders from "../src/hooks/useAuthProviders";
 import { theme } from "../src/theme";
+import OverlaySpinner from "../src/utils/components/OverlaySpinner";
 
 WebBrowser.maybeCompleteAuthSession();
 ExpoSplashScreen.preventAutoHideAsync();
@@ -106,6 +107,7 @@ const RootLayout = () => {
                     <RootNavigation />
                 </TemplateContextProvider>
             </WideAppContextProvider>
+            <OverlaySpinner />
         </NativeBaseProvider>
     )
 }

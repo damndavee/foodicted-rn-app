@@ -26,8 +26,6 @@ const AuthScreen = () => {
         resizeMode: 'cover' as ImageResizeMode
     }
 
-    
-
     const handleSwitchAuthFormType = (resetCallback: () => void) => {
         const temp = template.name === Templates.Signin ? Templates.Signup : Templates.Signin;
         setTemplate(temp);
@@ -61,9 +59,9 @@ const AuthScreen = () => {
                                                     placeholder={field.placeholder} 
                                                     type={field.type} 
                                                     variant={field.variant} 
-                                                    icon={field.icon} 
-                                                    />
-                                                )
+                                                    icon={field.icon}
+                                                />
+                                            )
                                         })}
                                         
                                         <FormFooter template={template} />
@@ -118,11 +116,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flex: 1
     },
-    // fomFooterContainer: {
-    //     flexDirection: 'row', 
-    //     alignItems: 'center', 
-    //     justifyContent: 'space-between'
-    // },
     header: {
         alignSelf: "center", 
         color: tokens.color.tertiary.light,
