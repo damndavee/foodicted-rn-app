@@ -1,4 +1,4 @@
-import { ExcludeComponentVariant, GenericComponentSize, GenericComponentType, Icon } from "./generic";
+import { ExcludeComponentVariant, GenericComponentSize, GenericComponentType, Icon } from "../generic";
 
 export interface IconProps {
     name: Icon;

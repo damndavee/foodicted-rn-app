@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { ListItemInputData, SelectableListProps } from "../../types/components/listItem";
+import { ListItemInputData, SelectableListProps } from "../../types/components/props/listItem";
 import { useEffect, useState } from 'react';
 import ListItem from '../items/ListItem';
 import { SelectableListContextProvider } from '../../context/SelectableList';

@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { Icon, ExcludeComponentVariant } from "./generic";
+import { Icon, ExcludeComponentVariant } from "../generic";
 import { FormikErrors } from "formik";
 
 export interface FormInputProps {

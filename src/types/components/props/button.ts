@@ -1,11 +1,11 @@
 import { FlexAlignType } from 'react-native/types';
-import { GenericComponentType, Icon, ExcludeComponentVariant, ExcludeComponentSize } from './generic';
+import { GenericComponentType, Icon, ExcludeComponentVariant, ExcludeComponentSize } from '../generic';
 
 interface ButtonFontStyle {
     fontSize?: number;
     isUnderline?: boolean;
     isItalic?: boolean;
-    isBold?: boolean;
+    fontWeight?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 }
 
 export interface ButtonProps {

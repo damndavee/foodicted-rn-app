@@ -1,4 +1,4 @@
-import { Icon } from "./generic";
+import { Icon } from "../generic";
 
 export type ListItemInputData = {
     icon: Icon,
