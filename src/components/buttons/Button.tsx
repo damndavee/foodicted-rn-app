@@ -48,7 +48,14 @@ const Button = (props: ButtonProps) => {
                             <Ionicons name={props.leftIcon} size={getButtonStyles(pressed, true)['fontSize']! + 8} color={getButtonStyles(pressed, true)['color']} />
                         </View>
                     )}
-                    <Text italic={props.textStyle?.isItalic} bold={props.textStyle?.isBold} underline={props.textStyle?.isUnderline} style={[getButtonStyles(pressed, true)]}>{props.label}</Text>
+                    <Text 
+                        italic={props.textStyle?.isItalic} 
+                        fontWeight={props.textStyle?.fontWeight} 
+                        underline={props.textStyle?.isUnderline} 
+                        style={[getButtonStyles(pressed, true)]}
+                    >
+                            {props.label}
+                    </Text>
                     {props.rightIcon && (
                         <View style={{paddingLeft: COMPONENT_SIZE[props.size][GenericComponentSizeIndex.Spacing] - 4}}>
                             <Ionicons name={props.rightIcon} size={getButtonStyles(pressed, true)['fontSize']! + 8} color={getButtonStyles(pressed, true)['color']} />

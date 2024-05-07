@@ -28,13 +28,13 @@ const WelcomeScreen = () => {
                 <View style={{ gap: tokens.spacing.small }}>
                     <AuthButtons />
                     <View style={styles.tncContainer}>
-                        <Text fontWeight={400} color={tokens.color.text} textAlign="center">
+                        <Text fontWeight={300} color={tokens.color.text} textAlign="center">
                             By continuing You agree to the {`\n`}
-                            <Text fontWeight={700} color={tokens.color.tertiary.dark}>
+                            <Text fontWeight={500} color={tokens.color.tertiary.dark}>
                                 terms of use {`\r`}
                             </Text> 
                                 and {`\r`}
-                            <Text fontWeight={700} color={tokens.color.tertiary.dark}>
+                            <Text fontWeight={500} color={tokens.color.tertiary.dark}>
                                 privacy policy
                             </Text>
                         </Text>

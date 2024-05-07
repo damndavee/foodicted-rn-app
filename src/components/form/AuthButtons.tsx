@@ -1,6 +1,6 @@
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import tokens from '../../utils/tokens';
-import { Divider } from 'native-base';
+import { Divider, Text } from 'native-base';
 import Icon from '../utils/Icon';
 import Button from '../buttons/Button';
 import { useTemplateContext } from '../../context/Template';
@@ -22,14 +22,12 @@ const AuthButtons = () => {
         size: 'Medium',
         type: 'Primary'
     };
-    
-    // TODO: utworzyć array z buttonami (nie generować 4x)
 
     return (
         <View>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.big }}>
                 <Divider flex={1} thickness={1} bgColor={tokens.color.primary.dark} />
-                <Text style={styles.additionalLoginText}>Sign in methods</Text>
+                <Text style={styles.additionalLoginText}>You can connect with</Text>
                 <Divider flex={1} thickness={1} bgColor={tokens.color.primary.dark} />
             </View>
             <View style={styles.additionalLoginContainer}>
@@ -44,8 +42,8 @@ const AuthButtons = () => {
                 type='Secondary' 
                 variant='Ghost'
                 textStyle={{
-                    isBold: true,
-                    isUnderline: true
+                    fontWeight: 700,
+                    isUnderline: true,
                 }}
                 label="Create a new account"
                 selfAlignment='center'
@@ -58,7 +56,6 @@ export default AuthButtons;
 
 const styles = StyleSheet.create({
     additionalLoginText: {
-        fontSize: tokens.fontSize.medium,
         color: tokens.color.primary.dark
     },
     additionalLoginContainer: {

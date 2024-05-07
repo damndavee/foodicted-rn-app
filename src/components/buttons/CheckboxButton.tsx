@@ -1,12 +1,12 @@
-import { Checkbox } from 'native-base';
-import { StyleSheet, Text } from 'react-native';
+import { Checkbox, Text } from 'native-base';
+import { StyleSheet } from 'react-native';
 import Button from './Button';
 import tokens from '../../utils/tokens';
 import { CheckboxProps } from '../../types/components/props/checkboxButton';
 
 const CheckboxButton = (props: CheckboxProps) => {
     return (
-        <Checkbox alignItems="center" colorScheme="emerald" onChange={props.onCheck} isChecked={props.isChecked} value="rememberMeCheck" >
+        <Checkbox colorScheme="emerald" onChange={props.onCheck} isChecked={props.isChecked} value="rememberMeCheck" >
             <Text style={styles.checkboxText}>{props.label}</Text>
             {props.customAction && (
                 <Button 
@@ -16,7 +16,10 @@ const CheckboxButton = (props: CheckboxProps) => {
                     dense 
                     type='Tertiary' 
                     variant='Ghost' 
-                    textStyle={{ fontSize: tokens.fontSize.medium, isBold: true}} />
+                    textStyle={{ 
+                        fontSize: tokens.fontSize.medium,
+                        fontWeight: 600
+                    }} />
             )}
         </Checkbox>
     )
@@ -26,7 +29,7 @@ export default CheckboxButton;
 
 const styles = StyleSheet.create({
     checkboxText: {
-        fontSize: tokens.fontSize.medium,
-        color: tokens.color.primary.dark
+        color: tokens.color.primary.dark,
+        fontSize: tokens.fontSize.medium
     }
 })
