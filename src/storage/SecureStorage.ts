@@ -19,9 +19,7 @@ export const saveToken = async (token: string) => {
         );
     };
 
-    return SecureStore.setItemAsync(authUserTokenKey, token, {
-        requireAuthentication: true,
-    });
+    return SecureStore.setItemAsync(authUserTokenKey, token);
 };
 
 export const removeTokens = async () => {
@@ -38,4 +36,4 @@ export const restoreToken = async () => {
     };
 
     return isTokenValid ? SecureStore.getItemAsync(authUserTokenKey) : null;
-}
+};
