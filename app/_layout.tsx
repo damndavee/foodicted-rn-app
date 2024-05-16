@@ -42,7 +42,15 @@ WebBrowser.maybeCompleteAuthSession();
 ExpoSplashScreen.preventAutoHideAsync();
 
 export const RootNavigation = () => {
+    const { AppleAuthentication, GoogleAuthentication, FacebookAuthentication } = useAuthProviders();
+
     useTokenManager();
+
+    useEffect(() => { 
+        GoogleAuthentication.init();
+        AppleAuthentication.init(); 
+        FacebookAuthentication.init();
+    }, []);
     
     return (
         <Stack>
@@ -55,8 +63,6 @@ export const RootNavigation = () => {
 }
 
 const RootLayout = () => {
-    const { AppleAuthentication, GoogleAuthentication, FacebookAuthentication } = useAuthProviders();
-
     const [imagesLoaded] = useImagesLoader([
         require('../assets/splash-screen.png'),
         require('../assets/welcome-screen.png'),
@@ -87,12 +93,6 @@ const RootLayout = () => {
         ...FontAwesome.font
     })
     
-    useEffect(() => { 
-        GoogleAuthentication.init();
-        AppleAuthentication.init(); 
-        FacebookAuthentication.init();
-    }, []);
-
     useEffect(() => {
         if (isGoogleFontLoaded && imagesLoaded) {
             ExpoSplashScreen.hideAsync();

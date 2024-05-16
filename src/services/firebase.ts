@@ -6,11 +6,12 @@ import {
     createUserWithEmailAndPassword, 
     onAuthStateChanged,  
     signInWithCredential,  
-    signInWithEmailAndPassword, 
+    signInWithEmailAndPassword,
     signOut,
 } from "firebase/auth";
 import { auth, db } from "../../firebase.config";
-import { doc, setDoc } from "firebase/firestore";
+import { QueryDocumentSnapshot, doc, getDoc, setDoc } from "firebase/firestore";
+import { AuthUser, OnboardingFlags } from "../storage/store/global/global.type";
 
 export const generateGoogleSignInCredentials = (token: string): AuthCredential => GoogleAuthProvider.credential(token);
 
@@ -29,31 +30,54 @@ export const authStateChangeListener = (): Promise<User | null> => {
 
 export const signOutFromExternalSource = () => signOut(auth);
 
+export const reauthenticateUser = async () => {
+    const { currentUser } = auth;
+    try {
+        await currentUser?.getIdToken();
+
+        const refreshedToken = await currentUser?.getIdTokenResult();
+        return refreshedToken?.token;
+    } catch (error) {
+        throw new Error(error as string);
+    }
+};
+
 export const signInWithEmail = (email: string, password: string) => signInWithEmailAndPassword(auth, email, password);
 
 export const signUpWithEmail = async (email: string, password: string) => createUserWithEmailAndPassword(auth, email, password);
 
-export const creasteUserWithAdditionalData = async (uid: string) => {
-    const additionalData = {
-        showBiometrics: true, 
+export const creasteUserWithAdditionalData = async (id: string, user: AuthUser) => {
+    const onboardingFlags: OnboardingFlags = {
         showOnboarding: true, 
-        showTermsAndConditions: true, 
+        termsAndConditionsAgreed: false, 
         biometricsEnabled: false, 
         notificationEnabled: false, 
-        nickname: null, 
         isNicknameSkipped: false, 
-        phoneNumber: null, 
         isPhoneNumberSkipped: false, 
-        avatarUrl: null
     };
 
-    const userDocRef = doc(db, 'users', uid);
+    const userDocRef = doc(db, 'users', id);
     const createdAt = new Date();
 
+    const userWithOnboardingFlags = {
+        id,
+        createdAt,
+        ...onboardingFlags,
+        ...user
+    }
+
     try {
-        await setDoc(userDocRef, {id: uid, createdAt, ...additionalData})
+        await setDoc(userDocRef, userWithOnboardingFlags)
+
+        return userWithOnboardingFlags;
     } catch (error) {
         throw new Error(error as string);
     }
-
 };
+
+export const getUserSnapshot = async (uid: string): Promise<QueryDocumentSnapshot | void> => {
+    const userDocRef = doc(db, 'users', uid);
+    const userSnapshot = await getDoc(userDocRef);
+
+    return userSnapshot.data() as QueryDocumentSnapshot;
+}

@@ -1,29 +1,46 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../storage/store";
+import { useAppDispatch } from "../storage/store";
 import { router } from "expo-router";
-import { setUserInfoThunk } from "../storage/store/global/global.thunk";
-import { selectAuthUserObject } from "../storage/store/global/global.reducer";
-import { restoreToken } from "../storage/SecureStorage";
+import { setUserInfo } from "../storage/store/global/global.reducer";
+import { removeTokens, restoreToken, saveToken } from "../storage/SecureStorage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { rememberMeKey } from "../storage/constants";
+import { reauthenticateUser } from "../services/firebase";
 
 const useTokenManager = () => {
     const dispatch = useAppDispatch();
-    const authUser = useAppSelector(selectAuthUserObject);
 
     const checkUserSession = async () => {
+        // TODO: when authentication thunk is ready, move this code to thunks.
         const token = await restoreToken();
+        const isRememberMeSet = await AsyncStorage.getItem(rememberMeKey);
 
         if(token) {
-            dispatch(setUserInfoThunk(router.replace)).then((user) => {
-                console.log("AUTHENTICATED USER GOES BRRR: ", user);
-            });
-        } else {
-            // TODO: Prompt for reauthentication
+            dispatch(setUserInfo(undefined));
+            // TODO: change it when happy auth path is completed (change to dashboard).
+            router.replace('/onboarding');
+            return;
         }
+
+        if(!isRememberMeSet || !JSON.parse(isRememberMeSet)) {
+            // TODO: Prevently call signOut here
+            removeTokens();
+            return;
+        }
+
+        const refreshedToken = await reauthenticateUser();
+
+        if(refreshedToken) {
+            saveToken(refreshedToken);
+        };
     }
 
     useEffect(() => {
-        console.log("EXP: ", new Date(1715258501000).toTimeString());        
-        console.log("NOW: ", new Date(1715255339143).toTimeString());
+        //* helpers - to debug token expiration date.
+
+        console.log("EXP: ", new Date(1715610950000).toTimeString());        
+        console.log("NOW: ", new Date(1715608966226).toTimeString());
+
         checkUserSession();
     }, []);
 };

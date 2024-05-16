@@ -1,7 +1,8 @@
 import * as SecureStore from 'expo-secure-store';
-import { authUserTokenKey, expiryTokenKey } from './constants';
+import { authUserTokenKey, expiryTokenKey, rememberMeKey } from './constants';
 
 import { Buffer } from 'buffer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const saveToken = async (token: string) => {
     const [headerEncoded, payloadEncoded] = token.split('.');
@@ -24,6 +25,7 @@ export const saveToken = async (token: string) => {
 
 export const removeTokens = async () => {
     [authUserTokenKey, expiryTokenKey].forEach(async key => await SecureStore.deleteItemAsync(key));
+    AsyncStorage.removeItem(rememberMeKey);
 }
 
 export const restoreToken = async () => {
