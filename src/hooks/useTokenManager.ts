@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch } from "../storage/store";
 import { router } from "expo-router";
-import { setUserInfo } from "../storage/store/global/global.reducer";
+import { checkActiveUserSessionThunk } from "../storage/store/global/global.thunk";
 import { removeTokens, restoreToken, saveToken } from "../storage/SecureStorage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { rememberMeKey } from "../storage/constants";
@@ -16,8 +16,9 @@ const useTokenManager = () => {
         const isRememberMeSet = await AsyncStorage.getItem(rememberMeKey);
 
         if(token) {
-            dispatch(setUserInfo(undefined));
+            dispatch(checkActiveUserSessionThunk());
             // TODO: change it when happy auth path is completed (change to dashboard).
+            // TODO: check if onboarding in enabled?
             router.replace('/onboarding');
             return;
         }

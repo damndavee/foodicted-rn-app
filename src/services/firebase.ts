@@ -11,7 +11,7 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../../firebase.config";
 import { QueryDocumentSnapshot, doc, getDoc, setDoc } from "firebase/firestore";
-import { AuthUser, OnboardingFlags } from "../storage/store/global/global.type";
+import { AuthUser, OnboardingFlags, UserWithOnboardingFlags } from "../storage/store/global/global.type";
 
 export const generateGoogleSignInCredentials = (token: string): AuthCredential => GoogleAuthProvider.credential(token);
 
@@ -28,7 +28,7 @@ export const authStateChangeListener = (): Promise<User | null> => {
     });
 };
 
-export const signOutFromExternalSource = () => signOut(auth);
+export const signOutFromExternalSource = async () => await signOut(auth);
 
 export const reauthenticateUser = async () => {
     const { currentUser } = auth;
@@ -46,7 +46,7 @@ export const signInWithEmail = (email: string, password: string) => signInWithEm
 
 export const signUpWithEmail = async (email: string, password: string) => createUserWithEmailAndPassword(auth, email, password);
 
-export const creasteUserWithAdditionalData = async (id: string, user: AuthUser) => {
+export const creasteUserWithAdditionalData = async (id: string, user: AuthUser): Promise<UserWithOnboardingFlags> => {
     const onboardingFlags: OnboardingFlags = {
         showOnboarding: true, 
         termsAndConditionsAgreed: false, 

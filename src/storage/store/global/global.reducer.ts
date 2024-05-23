@@ -1,20 +1,20 @@
-import { User } from 'firebase/auth';
 import { createAppSlice } from "../utils";
-import { authStateChangeListener } from '../../../services/firebase';
-import { setUserInfoThunk } from './global.thunk';
+import { PayloadAction, SerializedError, isFulfilled  } from "@reduxjs/toolkit";
+import { UserWithOnboardingFlags } from './global.type';
+import { fulfilledThunkKeys } from '../../constants';
 
-type SliceState = {
+export type GlobalSliceState = {
     token: string;
-    authUserObject: User | null;
+    authUserObject: UserWithOnboardingFlags | null,
     isSpinnerVisible: boolean;
     loadingMsg: string | null;
     error: any;
 };
 
 type SliceSelectors = {
-    selectLoadingState: (state: SliceState) => { isSpinnerVisible: boolean, loadingMsg: string };
-    selectToken: (state: SliceState) => string;
-    selectAuthUserObject: (state: SliceState) => User
+    selectLoadingState: (state: GlobalSliceState) => { isSpinnerVisible: boolean, loadingMsg: string };
+    selectToken: (state: GlobalSliceState) => string;
+    selectAuthUserObject: (state: GlobalSliceState) =>  UserWithOnboardingFlags;
 }
 
 const slice = createAppSlice({
@@ -25,7 +25,7 @@ const slice = createAppSlice({
         isSpinnerVisible: false,
         loadingMsg: null,
         error: null,
-    } as SliceState,
+    } as GlobalSliceState,
     reducers: (create) => ({
         toggleSpinnerVisibility: create.reducer<boolean>((state, action) => {
             state.isSpinnerVisible = action.payload;
@@ -35,19 +35,25 @@ const slice = createAppSlice({
         })
     }),
     extraReducers: builder => {
-        builder.addCase(setUserInfoThunk.fulfilled, (state: SliceState, action) => {
-            if(action.payload) {
+        builder.addMatcher(
+            (action) =>isFulfilled(action) && fulfilledThunkKeys.includes(action.type),
+            (state, action: PayloadAction<UserWithOnboardingFlags>) => {
+                state.isSpinnerVisible = false;
                 state.authUserObject = action.payload;
             }
-        });
-        builder.addCase(setUserInfoThunk.rejected, (state: SliceState, action) => {
-            state.error = action.error;
-        })
+        ),
+        builder.addMatcher(
+            (action) => action.type.endsWith('/rejected'),
+            (state, action: PayloadAction<unknown, string, {}, SerializedError>) => {
+                state.isSpinnerVisible = false;
+                state.error = action.error;
+            }
+        )
     },
     selectors: {
         selectLoadingState: ({ isSpinnerVisible, loadingMsg }) => ({isSpinnerVisible, loadingMsg}),
         selectToken: ({ token }) => token,
-        selectAuthUserObject: ({ authUserObject }) => authUserObject
+        selectAuthUserObject: ({ authUserObject }) => authUserObject,
     } as SliceSelectors,
 });
 

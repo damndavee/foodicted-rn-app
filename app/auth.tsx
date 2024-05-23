@@ -11,9 +11,13 @@ import { FormInputProps } from '../src/types/components/props/formInput';
 import { Formik } from 'formik';
 import { AuthIlustration } from '../src/components/utils/Ilustration';
 import FormFooter from '../src/components/form/FormFooter';
+import { authenticateUserDefault } from '../src/storage/store/global/global.thunk';
+import { useAppDispatch } from '../src/storage/store';
 
 const AuthScreen = () => {
     const { template, setTemplate, validationSchema } = useTemplateContext();
+
+    const dispatch = useAppDispatch();
 
     // TODO: Loading spinner
     if(!template) {
@@ -32,6 +36,14 @@ const AuthScreen = () => {
         resetCallback();
     };
 
+    const handleSubmit = (values: any) => {
+        dispatch(authenticateUserDefault({
+            email: values.email,
+            password: values.password,
+            template: template.name
+        }));
+    }
+
     return (
         <View style={[styles.rootContainer]}>
             <ImageBackground {...imageProps} >
@@ -40,7 +52,7 @@ const AuthScreen = () => {
                         <Heading fontFamily='heading' fontWeight={700} style={styles.header} size="3xl">{template.header}</Heading>
                         <AuthIlustration style={styles.icon} />
                     </View>
-                        <Formik initialValues={template.state} validationSchema={validationSchema} onSubmit={values => console.log("VALUES", values)}>
+                        <Formik initialValues={template.state} validationSchema={validationSchema} onSubmit={values => handleSubmit(values)}>
                             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, handleReset }) => (
                                 <View style={styles.formInnerContainer}>
                                     <View style={{gap: tokens.spacing.large}}>

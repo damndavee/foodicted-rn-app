@@ -2,16 +2,21 @@ import { useState } from 'react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { AccessToken, GraphRequest, GraphRequestManager, LoginManager } from 'react-native-fbsdk-next';
 import * as AppleAuth from 'expo-apple-authentication';
-import { generateFacebookSignInCredentials, generateGoogleSignInCredentials, signInWithExternalCredentials, signOutFromExternalSource } from '../services/firebase';
+import { signOutFromExternalSource } from '../services/firebase';
 import { Settings } from "react-native-fbsdk-next";
 
-import { removeTokens, saveToken } from '../storage/SecureStorage';
+import { removeTokens } from '../storage/SecureStorage';
 import { EXPO_WEB_CLIENT_ID } from '@env';
 import { PermissionResponse, requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
 import { Alert, Platform } from 'react-native';
+import { useAppDispatch } from '../storage/store';
+import { authenticateWithCustomProviderThunk } from '../storage/store/global/global.thunk';
+import { toggleSpinnerVisibility } from '../storage/store/global/global.reducer';
+import { AppProviders } from '../storage/store/global/global.type';
 
 const useAuthProviders = () => {
     const [isAppleAvailable, setIsAppleAvailable] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
 
     const GoogleAuthentication = {
         init: () => {
@@ -25,11 +30,10 @@ const useAuthProviders = () => {
                 const user = await GoogleSignin.signIn();
                 
                 if(user.idToken) {
-                    const googleCredentials = generateGoogleSignInCredentials(user.idToken);
-                    const credentials = await signInWithExternalCredentials(googleCredentials);
-                    const idTokenResult = await credentials.user.getIdTokenResult();
-    
-                    saveToken(idTokenResult.token);
+                    dispatch(authenticateWithCustomProviderThunk({
+                        uid: user.idToken, 
+                        provider: AppProviders.GOOGLE,
+                    }));
                 }            
             } catch(error) {
                 throw new Error('An Error occured: ', error as Error);
@@ -64,34 +68,39 @@ const useAuthProviders = () => {
                 }
     
                 if(result.isCancelled) {
+                    // TODO: add toast for canceling
                     return;
                 }
-    
-                const facebookCredentials = generateFacebookSignInCredentials(tokenObject.accessToken);
-                const credentials = await signInWithExternalCredentials(facebookCredentials);
-                const idTokenResult = await credentials.user.getIdTokenResult();
                 
-                await saveToken(idTokenResult.token);
-                // TODO: add loading spinner and overlay to differnet stage of request
+                dispatch(authenticateWithCustomProviderThunk({
+                    uid: tokenObject.accessToken, 
+                    provider: AppProviders.FACEBOOK, 
+                }));
             } catch (error) {
                 throw new Error('An Error occured: ', error as Error);
             }
         },
         logout: async () => {
+            dispatch(toggleSpinnerVisibility(true));
+
+            signOutFromExternalSource();
+
             try {
                 const accessToken = await AccessToken.getCurrentAccessToken();
                 
                 let logoutRequest = new GraphRequest('me/permissions/', {
                     httpMethod: 'DELETE',
                     accessToken: accessToken?.accessToken
-                }, (error, result) => {
+                }, async (error, result) => {
                     if(error) {
                         throw new Error('An Error occured: ', error.message as Error);
                     }
                     
                     if(result) {
+                        dispatch(toggleSpinnerVisibility(false));
+
+                        await removeTokens();
                         LoginManager.logOut();
-                        console.log("LOGOUT");
                         // TODO: add toast for successfully signing out
                     }
                 })
