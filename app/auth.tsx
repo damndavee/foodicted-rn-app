@@ -11,9 +11,13 @@ import { FormInputProps } from '../src/types/components/props/formInput';
 import { Formik } from 'formik';
 import { AuthIlustration } from '../src/components/utils/Ilustration';
 import FormFooter from '../src/components/form/FormFooter';
+import { authenticateUserDefault } from '../src/storage/store/global/global.thunk';
+import { useAppDispatch } from '../src/storage/store';
 
 const AuthScreen = () => {
     const { template, setTemplate, validationSchema } = useTemplateContext();
+
+    const dispatch = useAppDispatch();
 
     // TODO: Loading spinner
     if(!template) {
@@ -26,13 +30,19 @@ const AuthScreen = () => {
         resizeMode: 'cover' as ImageResizeMode
     }
 
-    
-
     const handleSwitchAuthFormType = (resetCallback: () => void) => {
         const temp = template.name === Templates.Signin ? Templates.Signup : Templates.Signin;
         setTemplate(temp);
         resetCallback();
     };
+
+    const handleSubmit = (values: any) => {
+        dispatch(authenticateUserDefault({
+            email: values.email,
+            password: values.password,
+            template: template.name
+        }));
+    }
 
     return (
         <View style={[styles.rootContainer]}>
@@ -42,7 +52,7 @@ const AuthScreen = () => {
                         <Heading fontFamily='heading' fontWeight={700} style={styles.header} size="3xl">{template.header}</Heading>
                         <AuthIlustration style={styles.icon} />
                     </View>
-                        <Formik initialValues={template.state} validationSchema={validationSchema} onSubmit={values => console.log("VALUES", values)}>
+                        <Formik initialValues={template.state} validationSchema={validationSchema} onSubmit={values => handleSubmit(values)}>
                             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, handleReset }) => (
                                 <View style={styles.formInnerContainer}>
                                     <View style={{gap: tokens.spacing.large}}>
@@ -61,9 +71,9 @@ const AuthScreen = () => {
                                                     placeholder={field.placeholder} 
                                                     type={field.type} 
                                                     variant={field.variant} 
-                                                    icon={field.icon} 
-                                                    />
-                                                )
+                                                    icon={field.icon}
+                                                />
+                                            )
                                         })}
                                         
                                         <FormFooter template={template} />
@@ -118,11 +128,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flex: 1
     },
-    // fomFooterContainer: {
-    //     flexDirection: 'row', 
-    //     alignItems: 'center', 
-    //     justifyContent: 'space-between'
-    // },
     header: {
         alignSelf: "center", 
         color: tokens.color.tertiary.light,

@@ -6,6 +6,8 @@ import { Template, Templates } from "../../types/template";
 import { router } from "expo-router";
 import Button from "../buttons/Button";
 import tokens from "../../utils/tokens";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { rememberMeKey } from "../../storage/constants";
 
 type FormFooterProps = {
     template: Template;
@@ -31,7 +33,14 @@ const FormFooter = (props: FormFooterProps) => {
     }
 
     const handleOnCheck = () => {
-        setIsChecked(prevState => !prevState);
+        setIsChecked(prevState => {
+
+            if(Templates.Signin) {
+                AsyncStorage.setItem(rememberMeKey, JSON.stringify(!prevState));
+            }
+
+            return !prevState;
+        });        
     };
 
     const handleGoToForgotPasswordScreen = () => {

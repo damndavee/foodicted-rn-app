@@ -21,6 +21,7 @@ const tokens = {
         success: '#15CD72',
         warning: '#fcecf4',
         muted: '#ECECEC',
+        backdrop: '#21272AB3'
     },
     spacing: {
         xsmall: 4,

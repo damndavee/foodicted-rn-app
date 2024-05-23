@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import * as ExpoSplashScreen from 'expo-splash-screen';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as WebBrowser from "expo-web-browser";
@@ -31,14 +31,27 @@ import {
 
 import { AmaticaSC_Bold700, AmaticaSC_Regular400 } from '@expo-google-fonts/amatica-sc'
 
-import { WideAppContextProvider } from "../src/context/App";
 import useAuthProviders from "../src/hooks/useAuthProviders";
 import { theme } from "../src/theme";
+import OverlaySpinner from "../src/utils/components/OverlaySpinner";
+import { store } from "../src/storage/store";
+import { Provider } from "react-redux";
+import useTokenManager from "../src/hooks/useTokenManager";
 
 WebBrowser.maybeCompleteAuthSession();
 ExpoSplashScreen.preventAutoHideAsync();
 
 export const RootNavigation = () => {
+    const { AppleAuthentication, GoogleAuthentication, FacebookAuthentication } = useAuthProviders();
+
+    useTokenManager();
+
+    useEffect(() => { 
+        GoogleAuthentication.init();
+        AppleAuthentication.init(); 
+        FacebookAuthentication.init();
+    }, []);
+    
     return (
         <Stack>
             <Stack.Screen name='index' options={{ headerShown: false }} />
@@ -50,8 +63,6 @@ export const RootNavigation = () => {
 }
 
 const RootLayout = () => {
-    const { AppleAuthentication, GoogleAuthentication, FacebookAuthentication } = useAuthProviders();
-
     const [imagesLoaded] = useImagesLoader([
         require('../assets/splash-screen.png'),
         require('../assets/welcome-screen.png'),
@@ -82,12 +93,6 @@ const RootLayout = () => {
         ...FontAwesome.font
     })
     
-    useEffect(() => { 
-        GoogleAuthentication.init();
-        AppleAuthentication.init(); 
-        FacebookAuthentication.init();
-    }, []);
-
     useEffect(() => {
         if (isGoogleFontLoaded && imagesLoaded) {
             ExpoSplashScreen.hideAsync();
@@ -100,12 +105,13 @@ const RootLayout = () => {
 
     return (
         <NativeBaseProvider theme={theme}>
-            <WideAppContextProvider>
+            <Provider store={store}>
                 <TemplateContextProvider>
                     <StatusBar animated translucent={false} barStyle='dark-content' backgroundColor={tokens.color.primary.light} />
                     <RootNavigation />
                 </TemplateContextProvider>
-            </WideAppContextProvider>
+                <OverlaySpinner />
+            </Provider>
         </NativeBaseProvider>
     )
 }
